@@ -1,4 +1,4 @@
-## Opening debuggers
+### Opening Debuggers
 
 There are many ways to open debuggers.
 For example, executing `1/0` will raise a `ZeroDivide` exception.

@@ -1,4 +1,10 @@
-## Elements of the debugger
+### Elements of the Debugger
+
+
+
+
+
+
 
 In this chapter, we describe the standard debugging features, workflow, and the debugger user interface to contextualize our implementations.
 

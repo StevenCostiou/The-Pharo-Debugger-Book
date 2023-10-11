@@ -1,12 +1,7 @@
 ### Elements of the Debugger
 
 
-
-
-
-
-
-In this chapter, we describe the standard debugging features, workflow, and the debugger user interface to contextualize our implementations.
+In this chapter, we describe the elements of the debugger graphical user interface. 
 
 The *StDebugger*~(\autoref{fig:stdebugger}) is an interactive debugger for Pharo programs.
 To start debugging and exploring a program, developers use breakpoints to automatically break the program at certain points in its execution.

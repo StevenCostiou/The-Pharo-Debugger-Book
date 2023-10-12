@@ -1,15 +1,27 @@
 ### Elements of the Debugger
 
+In this chapter, we describe the elements of the debugger graphical user interface, shown in the following figure. 
+From top to bottom, the debugger shows an option toolbar, a call stack, a command toolbar, a code pane and an inspector.
 
-In this chapter, we describe the elements of the debugger graphical user interface. 
+![The debugger GUI.](graphics/debugger-elements.png)
 
 
-To start debugging and exploring a program, developers use breakpoints to automatically break the program at certain points in its execution.
-When a breakpoint is hit, the StDebugger obtains control of the program execution, and its GUI is shown.
+#### The stack
+The stack is a visual representation of what, in general terminology, is known as an execution call stack.
 
-![The debugger GUI.](graphics/debugger-elements.png) 
+The last context is the current executing context, where the execution is interrupted and waiting for control.
 
-The debugger shows the Stack~(\autoref{fig:stdebugger}~a), a visual representation of what, in general terminology, is known as the execution call stack.
+![The stack.](graphics/stack.png)
+
+
+
+It shows the call stack of the current interrupted context.
+Each element in the stack is a context representing a message send.
+The context menu (through right click) provides different interactions with the selected stack element: inspection, exploration, exportation, etc.
+By default, only a small part of the stack is shown.
+More of the stack is observable by either clicking on the bottom context (the last in the stack) or through the context menu.
+
+
 Developers manually step through the execution by using the commands (\autoref{fig:stdebugger}~b).
 After any debugging action, the code presenter (\autoref{fig:stdebugger}~c) is updated and highlights the source code that will be executed in the next step.
 Developers observe execution data using the inspector (\autoref{fig:stdebugger}~d) in addition to the stack.
@@ -18,31 +30,19 @@ Developers observe execution data using the inspector (\autoref{fig:stdebugger}~
 The Pharo StDebugger main GUI elements. Composed by the stack (a), the debugging commands toolbar (b), the code presenter (c), and the debugger inspector (d)
 
 
-!!Structure of the Pharo debugger
-
-!!!Sub-presenters and layouts
-The debugger is composed of default views and extension views.
-Default views are the stack, the commands, the status line, the code pane and the inspector.
-An extension view automatically appears if any debugging extension is present and if extensions are activated in the settings.
-If not, extensions do not appear.
-
-Default and extension views are available in a vertical and an horizontal layout.
-It is configureable in the settings under ==Tools >> Debugging >> Debugger layout==.
-It is possible to fully customize the debugger layout, and therefore to add or remove any view.
-The customized layout must then me selected in the aforementioned setting to be set as default.
-To appear in that setting's list of possible values, the layout must be implemented in a method under the ==specs== protocol of the ==StDebugger== class side.
 
 
-""The stack.""
-It shows the call stack of the current interrupted context.
-Each element in the stack is a context representing a message send.
 
-The context menu (through right click) provides different interactions with the selected stack element: inspection, exploration, exportation, etc.
 
-By default, only a small part of the stack is shown.
-More of the stack is observable by either clicking on the bottom context (the last in the stack) or through the context menu.
 
-""Commands.""
+#### The option menu.
+
+
+#### The commands.
+
+#### The code.
+
+#### The inspector.
 Commands are actions applicable to the current context
 After each debugging action (''e.g.'', a step), the list of commands is being updated.
 New commands may appear or disappear.

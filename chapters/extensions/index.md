@@ -14,6 +14,9 @@ When a debugging extension is loaded in the system and activated, it automatical
 
 ++SCREENSHOT HERE++
 
+
+
+
 !!!!Implementing a debugger extension
 First, a spec presenter must be implemented.
 It will be the view displayed in one tab of the extension column.

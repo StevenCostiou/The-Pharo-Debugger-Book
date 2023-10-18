@@ -8,18 +8,38 @@ From top to bottom, the debugger shows an option toolbar, a call stack, a comman
 
 #### The stack
 The stack is a visual representation of what, in general terminology, is known as an execution call stack.
+Each element in the stack is an object called a *context*, that represents a method being executed.
+Each context has a receiver, *i.e.*, the object executing the method, and a sender, *i.e.*, another context from which a message was sent to the receiver, provoking the execution of the method by the receiver.
 
-The last context is the current executing context, where the execution is interrupted and waiting for control.
+The last context in the stack (at the top) is the current executing context, where the execution is interrupted and waiting for control. The first context in the stack (at the bottom) is the context from which the execution began, which triggered the successive context call chain until the execution interruption.
 
-![The stack.](graphics/stack.png)
+![The stack, with its context call chain.](graphics/stack.png)
+
+The stack has a context menu accessible by right clicking on any element of the stack. This menu provides different interactions with the selected stack element: 
+- **Return:** Return of a given value to the previous context.
+- **Copy Stack to Clipboard:** Copy the debugging stack to the clipboard.
+- **Peel to first like this:** Peels the stack back to the second occurance of the currently selected message.
+- **File out method:** Write the source code of the selected context's method on a file.
+- **Browse all instances:** Browse all instances of the class of the selected context's receiver.
+- **Browse all subinstances:** Browse all instances of the selected context's receiver class and all its subclasses.
+- **Browse pointers to:** Browse all objects referencing the receiver of the selected context.
+- **Browse method inheritance:** Browse the hierarchy implementors of the selected method
+- **Browse method versions:** Browse the version history of the method.
+- **Implementors of it:** Browse all implementors of the selected method or message
+- **Senders of it:** Browse all senders of the selected method or message
+- **References to it:** Browse all references to the selected method or selector
+- **Browse all instances:** Browse all instances of the selected class
+- **Browse all subinstances:** Browse all instances of the selected class and all its subclasses
+- **Browse class references:** Browse all references to the receiver's class
+- **Browse class hierarchy:** Browse the class hierarchy of the selected class
+- **Browse class variables:** Browse the class variables
+- **Browse class variables reference:** Browse the references to class variables
+- **Browse instance variables reference:** Browse the references to instance variables
+- **Browse pointers to:** Browse all objects referencing the selected object
 
 
 
-It shows the call stack of the current interrupted context.
-Each element in the stack is a context representing a message send.
-The context menu (through right click) provides different interactions with the selected stack element: inspection, exploration, exportation, etc.
-By default, only a small part of the stack is shown.
-More of the stack is observable by either clicking on the bottom context (the last in the stack) or through the context menu.
+
 
 
 Developers manually step through the execution by using the commands (\autoref{fig:stdebugger}~b).
@@ -81,5 +101,3 @@ Ticking or unticking a breakpoint in that list will activate or deactivate that 
 The meta inspection shows methods of the receiver's class hierarchy.
 Methods can be modified and saved in directly in that pane.
 
-
-+Debugger views (OLD PICTURE)>file://images/debugger-structure-2.png+

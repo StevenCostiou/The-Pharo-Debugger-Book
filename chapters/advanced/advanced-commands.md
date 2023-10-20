@@ -1,6 +1,6 @@
 ### Advanced Debugger Actions
 
-In this chapter, we describe the advanced debugging commands provided by the "Advanced step" menu in the graphical user interface, shown in the following figure:
+In this chapter, we describe the advanced debugging commands (2 in the following figure) provided by the "Advanced step" menu (1 in the following figure) in the graphical user interface:
 
 ![The debugger advanced step toolbar.](graphics/advanced-step-toolbar.png)
 
@@ -16,6 +16,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - no class has been instanciated within 1000 steps,
     - an unhandled exception has been raised,
     - the current context has returned to its sender.
+
+    **Example:** 
+    After clicking "Next instance creation" (1 in the following figure) from this code location (2 in the figure below)
+
+    ![Step to next instance creation](graphics/before-step-next-creation.png)
 
 * **Next call in receiver:** Steps the execution until a message is sent to the current context's receiver.
     The execution is stopped and an error message is displayed when one of these situations happen:

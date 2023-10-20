@@ -47,7 +47,14 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
 
 * **Skip up to:** Skips several instructions in the same context, without executing them, up to the instruction under the caret.
     The instructions that are skipped are the same that are skipped by the command *skip*: message sends, assignments, returns, jumps and block creations.
-    The caret need to be in the top context: don't forget that a non-inlined block context is not the same as its home context.
-    
+    The caret needs to be in the top context: don't forget that a non-inlined block context is not the same as its home context.
+    Also, the caret needs to be after the current instruction
 
+* **JumpToCaret:** jumps to the instruction under caret that can be anywhere in the home context, without changing the state of the program.
+    This command is similar to the "Skip up to" command except that it is much more powerful as it can be used:
+    - to move back and forth in the top context,
+    - to enter blocks from its home context,
+    - it can be used to exit blocks to go to an instruction within the home context
+
+#### How and where are debugger advanced commands implemented
 

@@ -1,1 +1,1 @@
-### Denbugger Extensions
+### Debugger Extensions

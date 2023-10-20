@@ -2,7 +2,7 @@
 
 In this chapter, we describe the advanced debugging commands provided by the "Advanced step" menu in the graphical user interface, shown in the following figure:
 
-![The debugger advanced step toolbar.](graphics/advanced-step-toolbar.png.png)
+![The debugger advanced step toolbar.](graphics/advanced-step-toolbar.png)
 
 These commands allow to perform steps with bigger granularity than the basic ones.
 Some of these commands are experimental features to skip the execution of some parts of the code under debug.
@@ -55,6 +55,4 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - to move back and forth in the top context,
     - to enter blocks from its home context,
     - it can be used to exit blocks to go to an instruction within the home context
-
-#### How and where are debugger advanced commands implemented
 

@@ -18,9 +18,13 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - the current context has returned to its sender.
 
     **Example:** 
-    After clicking "Next instance creation" (1 in the following figure) from this code location (2 in the figure below)
+    After clicking "Next instance creation" (1 in the following figure) from this code location (2 in the figure below),
 
     ![Step to next instance creation](graphics/before-step-next-creation.png)
+
+    we get to the next instruction that creates an instance (`#basicNew`), called inside `SindarinDebugger class>>#debug:`.
+
+    ![Step to next instance creation](graphics/after-step-next-creation.png)
 
 * **Next call in receiver:** Steps the execution until a message is sent to the current context's receiver.
     The execution is stopped and an error message is displayed when one of these situations happen:
@@ -28,11 +32,30 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - an unhandled exception has been raised,
     - the current context has returned to its sender.
 
+    **Example:**
+    After clicking "Next call in receiver" (1 in the following figure) from this code location (2 in the figure below),
+
+    ![Step to next call in receiver](graphics/before-next-call-receiver.png)
+
+    we get to the next message send `#add` to the object `oc`. We don't stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is different from `oc`:
+
+    ![Step to next call in receiver](graphics/after-next-call-receiver.png)
+
 * **Next call in class:** Steps the execution until a message is sent to any instance of the class of the current context's receiver.
     The execution is stopped and an error message is displayed when one of these situations happen:
     - no message has been sent to any instance of the current context's receiver's class within 1000 steps,
     - an unhandled exception has been raised,
     - the current context has returned to its sender.
+
+    **Example:**
+    After clicking "Next call in receiver" (1 in the following figure) from this code location (2 in the figure below),
+
+    ![Step to next call in class](graphics/before-next-call-class.png)
+
+    We stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is an instance from the same class as `oc`:
+
+    ![Step to next call in class](graphics/after-next-call-class.png)
+
 
 * **To return:** Steps the execution until the current context is about to return or until an unhandled exception is raised.
 

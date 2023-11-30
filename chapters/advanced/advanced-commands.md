@@ -54,7 +54,7 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
 
     We stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is an instance from the same class as `oc`:
 
-    <!-- ![Step to next call in class](graphics/after-next-call-class.png) -->
+
 
 
 * **To return:** Steps the execution until the current context is about to return or until an unhandled exception is raised.

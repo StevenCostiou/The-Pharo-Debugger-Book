@@ -5,6 +5,13 @@ From top to bottom, the debugger shows an option toolbar, a call stack, a comman
 
 ![The debugger GUI.](graphics/debugger-elements.png)
 
+#### The option toolbar
+
+![The debugger GUI.](graphics/option-toolbar-extensions.png) **Extensions**
+
+The _extensions_ option opens a popup to choose which debugger extension to activate or deactivate.
+Debugger extensions are covered later in the corresponding chapter.
+
 
 #### The stack
 The stack is a visual representation of what, in general terminology, is known as an execution call stack.

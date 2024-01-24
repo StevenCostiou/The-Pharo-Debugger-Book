@@ -7,7 +7,7 @@ From top to bottom, the debugger shows an option toolbar, a call stack, a comman
 
 #### The option toolbar
 
-![](graphics/option-toolbar-extensions.png) **Extensions**
+![](graphics/option-toolbar-extensions.png width=29&label=foo&caption=fkjhkjhkjhjkh) **Extensions**
 
 The _extensions_ option opens a popup to choose which debugger extension to activate or deactivate.
 Debugger extensions are covered later in the corresponding chapter.

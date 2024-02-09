@@ -2,17 +2,27 @@
 
 ## Semi-automatic code generation in the debugger 
 
-When you are writing tests, certain assertions have a purpose to automatically raise an exception to open a debugger and make the assertion fail.
+When writing tests, you often want to write a test about the result of a method but sometimes you do not know what exactly the result should be. 
+For instance, if the method call performs complex computations, it is complicated to know in advance what the result should be.
+Because of that, it can be difficult to write assertions.
 
-When these assertions fail, this rewrites the assertion into another assertion that would make the test pass.
+For these reasons, we introduced a system to generate assertions on the fly based on the result of an expression.
 
-For example, if you use the assertion `see:` (1 in the following figure) in a test, it will evaluate its argument and rewrite the assertion into an assertion `assert:equals:` (2 in the following figure) with the result of the evaluated expression as second argument.
+To use it, first, you need to write a test with the assertion `see:`.
+This assertion takes as argument the expression whose result you're interested in:
+
+![Test with `see:` assertion, used to generate assertions](./graphics/see-assertion-before-rewriting.png)
+
+Then, when you run the test, the assertion will raise an exception.
+This will open a debugger that will handle the exception to rewrite the assertion into an `assert:equals:` with the result of the tested expression as second argument (1 in the figure below):
+
+![Test generated in the debugger with `see:` assertion, when running the test](./graphics/see-assertion-after-rewriting.png)
+
 You can then judge by yourself if the actual value is correct or not.
+
 According to your judgement, you can either: 
-- click on **Gen&Proceed** in the debugger action bar (3 in the following figure) to confirm the code rewriting and proceed your program.
-- fix the test (or the tested code) until you are satisfied with the generated code.
+- click on **Gen&Proceed** in the debugger action bar (2 in the figure above) to confirm the code rewriting and proceed your program.
+- close the debugger, which will cancel the code rewriting. You can then fix the test (or the tested code) until you are satisfied with the generated code.
 
-![Using the debugger to rewrite assertions in tests](./graphics/see-assertion-rewriting.png)
-
-For now, the only exception allowing to automatically rewrite code allows to design tests.
+For now, the only exception allowing to automatically rewrite code allows to generate `assert:equals:` with literals.
 However, the system has been designed to allow exceptions to generate any type of code, not solely tests.

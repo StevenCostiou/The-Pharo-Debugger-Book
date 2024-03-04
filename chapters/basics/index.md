@@ -13,3 +13,5 @@ In the following chapters, we describe the elements of the Pharo debugger, what 
 <!inputFile|path=debugger-actions.md!>
 
 <!inputFile|path=halts-breakpoints.md!>
+
+<!inputFile|path=debug-points.md!>

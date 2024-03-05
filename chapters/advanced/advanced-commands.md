@@ -4,7 +4,7 @@ In this chapter, we describe the advanced debugging commands (2 in the following
 
 ![The debugger advanced step toolbar.](graphics/advanced-step-toolbar.png)
 
-These commands allow to perform steps with bigger granularity than the basic ones.
+These commands allow to perform steps with bigger granularity than the basic ones, as it may be tedious to debug a program with basic steps.
 Some of these commands are experimental features to skip the execution of some parts of the code under debug.
 
 #### Advanced debugging commands of the StDebugger
@@ -18,11 +18,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - the current context has returned to its sender.
 
     **Example:** 
-    After clicking "Next instance creation" (1 in the following figure) from this code location (2 in the figure below),
+    After clicking the *Next instance creation* button (referred as 1 in the following figure) from the first assignment of `a` (code location referred as 2 in the figure below),
 
     ![Step to next instance creation](graphics/before-step-next-creation.png)
 
-    we get to the next instruction that creates an instance (`#basicNew`), called inside `SindarinDebugger class>>#debug:`.
+    we get to the next instruction that creates an instance (`#basicNew`), called inside `SindarinDebugger class>>#debug:`:
 
     ![Step to next instance creation](graphics/after-step-next-creation.png)
 
@@ -33,11 +33,12 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - the current context has returned to its sender.
 
     **Example:**
-    After clicking "Next call in receiver" (1 in the following figure) from this code location (2 in the figure below),
+    After clicking the *Next call in receiver* button (referred as 1 in the following figure) from the instruction `oc add: 1` (code location referred as 2 in the figure below),
 
     ![Step to next call in receiver](graphics/before-next-call-receiver.png)
 
-    we get to the next message send `#add` to the object `oc`. We don't stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is different from `oc`:
+    we get to the next message send `#add:` to the object `oc` with `2` as argument.
+    We don't stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is a different object from `oc`:
 
     ![Step to next call in receiver](graphics/after-next-call-receiver.png)
 
@@ -48,13 +49,13 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - the current context has returned to its sender.
 
     **Example:**
-    After clicking "Next call in receiver" (1 in the following figure) from this code location (2 in the figure below),
+    After clicking the *Next call in receiver* (referred as 1 in the following figure) from the instruction `oc add: 1` (code location referred as 2 in the figure below),
 
     ![Step to next call in class](graphics/before-next-call-class.png)
 
     We stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is an instance from the same class as `oc`:
 
-
+    ![Step to next call in class](graphics/after-next-call-class.png)
 
 
 * **To return:** Steps the execution until the current context is about to return or until an unhandled exception is raised.

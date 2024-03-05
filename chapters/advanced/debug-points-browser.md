@@ -14,7 +14,7 @@ The "enabled" state of the debug point is also displayed via a checkbox, as well
 All behaviors of the selected can be configured via the right pane of the debug point browser (referred as 2 in the figure above).
 
 When a debug point is selected, according to the target of the debug point, different information are displayed.
-If the target is an AST node, the code of the concerned method is displayed (referred as 3 in the screenshot above), while highlighting the code corresponding to the targeted node.
+If the target is an AST node, the code of the concerned method is displayed (referred as 3 in the screenshot above), while highlighting the code corresponding to the target node.
 If the target is an instance variable, all concerned methods (referred as 1 in the figure below) are listed and selecting a method displays the corresponding code (referred as 2 in the figure below) and highlights the correct variable accesses:
 
 ![Debug Point Browser with a selected debug point set on an instance variable](./graphics/debug-points-browser-variable.png)

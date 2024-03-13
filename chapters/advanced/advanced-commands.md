@@ -49,7 +49,7 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - the current context has returned to its sender.
 
     **Example:**
-    After clicking the *Next call in receiver* (referred as 1 in the following figure) from the instruction `oc add: 1` (code location referred as 2 in the figure below),
+    After clicking the *Next call in receiver* button (referred as 1 in the following figure) from the instruction `oc add: 1` (code location referred as 2 in the figure below),
 
     ![Step to next call in class](graphics/before-next-call-class.png)
 
@@ -58,9 +58,31 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     ![Step to next call in class](graphics/after-next-call-class.png)
 
 
-* **To return:** Steps the execution until the current context is about to return or until an unhandled exception is raised.
+* **To return:** Steps the execution until the current context is about to return, whether this is via a normal return, a non-local return or an implicit return, or until an unhandled exception is raised.
+    This is particularly useful if you don't know which execution path is taken to return.
 
-* **To method entry:** Steps the execution until it enters a newly called method.
+    **Example:**
+    After clicking the *To return* button (referred as 1 in the following figure) from the bloc creation `[ ^ 42]` (code location referred as 2 in the figure below),
+
+    ![Step to return](graphics/before-step-to-return.png)
+
+    We stop inside the block because the block evaluation is going to perform a non-local return `^ 42`:
+
+    ![Step to return](graphics/after-step-to-return.png)
+   
+
+* **To method entry:** Steps the execution until a method is called, to stop at the start of its execution.
+
+    **Example:**
+    After clicking the *To method entry* button (referred as 1 in the following figure) from the start of the execution of the method `testBeginsWithAnyOf2` (code location referred as 2 in the figure below),
+
+    ![Step to method entry](graphics/before-step-method-entry.png)
+
+    We stop at the beginning of the method `new` because this is the next message that is sent during the execution:
+
+    ![Step to method entry](graphics/after-step-method-entry.png)
+
+
 
 * **Skip:** Skips an instruction without executing it. 
     Any instruction that is skipped is simulated as if it was executed but no side effect are applied. The arguments of the skipped instruction are consumed and a simulated return value is pushed on the stack when needed.
@@ -68,16 +90,35 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
 
     - **message send:** the arguments are consumed, the lookup is not performed and the receiver is pushed on the stack as the result of the method call,
     - **assignment:** the assignment is not executed. If the result of the assignment is supposed to be used by another instruction then the value of the variable that was going to be assigned is pushed on the stack as a replacement value,
-    - **return:** the return instruction is skipped if and only if there is another return instruction after this one, further in the method. Otherwise, an exception is raised to tell that this return instruction cannot be skipped,
+    - **return:** the return instruction is skipped if and only if there is another return instruction further than this one, further in the method. Otherwise, an exception is raised to tell that this return instruction cannot be skipped,
     - **jump:** we just skip the bytecode that performs the jump,
     - **block creation:** the block is not created, pushes `nil` on the stack instead.
 
     After the instruction has been skipped, instructions (mainly push/pop instructions) are stepped until the current instruction is one of the 5 above.
 
+    **Example:**
+    After clicking the *Skip* button (referred as 1 in the following figure) when the message `unkownMessage` is going to be sent to `1`,
+
+    ![Skip a message send](graphics/before-skip.png)
+
+    Instead of sending the message that would raise a `MessageNotUnderstood` exception, it simulates as if the message send had returned `1` and stops on the expression `+ 42`. So, stepping this expression will return `43`, as `1 + 42` is evaluated
+
+
+
+
 * **Skip up to:** Skips several instructions in the same context, without executing them, up to the instruction under the caret.
     The instructions that are skipped are the same that are skipped by the command *skip*: message sends, assignments, returns, jumps and block creations.
-    The caret needs to be in the top context: don't forget that a non-inlined block context is not the same as its home context.
-    Also, the caret needs to be after the current instruction
+    The caret needs to be in the top context: don't forget that a non-inlined block context is not the same as its home context (i.e: the context of the method that created the block).
+    Also, the caret needs to be after the current instruction: it is not possible to go back to a previous instruction.
+
+    **Example:**
+    After setting the caret to the instruction `a + 2` (code location referred as 3 in the following figure) and clicking the *Skip up to* button (referred as 1 in the following figure), from the block creation `[ a := a + 1]` (code location referred as 2 in the following figure,)
+
+    ![Skip up to caret](graphics/before-skip-up-to.png)
+
+    The block creation is skipped, which returns `nil` instead, and the assignment of the variable `block` is also skipped. As a result, the variable `block` is still `nil` after skipping the code:
+
+    ![Skip up to caret](graphics/after-skip-up-to.png)
 
 * **JumpToCaret:** jumps to the instruction under caret that can be anywhere in the home context, without changing the state of the program.
     This command is similar to the "Skip up to" command except that it is much more powerful as it can be used:

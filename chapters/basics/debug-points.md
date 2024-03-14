@@ -12,11 +12,11 @@ Basic debug points can also be used but they do nothing unless we add **behavior
 
 It is possible to double-click on the left bar in the Calypso browser to set a basic breakpoint on the corresponding line:
 
-![Activating basic breakpoint by double-clicking the left bar in the method editor](./graphics/debug-points-method-left-bar.png)
+<img src="./graphics/debug-points-method-left-bar.png" alt="Activating basic breakpoint by double-clicking the left bar in the method editor" width="370" height="auto">
 
 Moreover, in the Calypso browser, it is also possible to right-click on a piece of code to set a debug point on the corresponding instruction:
 
-![Installing basic debug points from the Calypso browser in the method editor](./graphics/debug-points-method-editor-context-menu.png)
+<img src="./graphics/debug-points-method-editor-context-menu.png" alt="Installing basic debug points from the Calypso browser in the method editor" width="700" height="auto">
 
 #### Behaviors of debug points
 
@@ -40,16 +40,22 @@ It is also possible to configure debug points via a UI tool, the Debug Point Bro
 Debug points can be installed on different types of targets:
 
 - an *AST node*, which can be targeted by selecting source code in the Calypso browser:
-  ![Targeting an AST node by selecting source code in the Calypso browser](./graphics/debug-points-method-editor-context-menu.png).
+  <img src="./graphics/debug-points-method-editor-context-menu.png" alt="Targeting an AST node by selecting source code in the Calypso browser" width="700" height="auto">
+  
   In this case, the debug point is reached when the corresponding code is executed. 
   *NB: To put basic breakpoints quickly on AST nodes, it is still possible to double-click the left bar in the method editor, just like with the ancient breakpoint system:*
-  ![Activating basic breakpoint by double-clicking the left bar in the method editor](./graphics/debug-points-method-left-bar.png)
+
+  <img src="./graphics/debug-points-method-left-bar.png" alt="Activating basic breakpoint by double-clicking the left bar in the method editor" width="370" height="auto">
+  
   **API:**
   + `DebugPointManager installNew: aDebugPointClass on: anASTNode`: instanciates a debug point class, configured with no behavior, and installs it on on an AST node 
   + `DebugPointManager installNew: aDebugPointClass on: aNode withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on on an AST node 
 - a *variable*, which can be targeted by selecting a variable in the variable view in the Calypso browser:
-  ![Selecting a variable in the variable view in the Calypso browser, to set a debug point on a variable](./graphics/debug-points-variable-view-context-menu.png)
+
+  <img src="./graphics/debug-points-variable-view-context-menu.png" alt="Selecting a variable in the variable view in the Calypso browser, to set a debug point on a variable" width="750" height="auto">
+
   In this case, the debug point is reached each time the targeted variable is read or/and written, according to the debug point's configuration.
+
   **API:**
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableAccessNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable, whose name is given as argument, in a class hierarchy. The debug point is reached at each reading or writing of this variable.
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableAccessNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each reading or writing of this variable.
@@ -58,6 +64,7 @@ Debug points can be installed on different types of targets:
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableWriteNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each writing to this variable.
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableWriteNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each writing to this variable.
 - an *object*, in order to install object-centric debug points. This type of target **wraps another target** (AST node or variable). In this case, the debug point is reached only if the wrapped target is reached and if the receiver is the target instance.
+
   **API:**
   + `DebugPointManager installNew: aDebugPointClass on: anASTNode forObject: anObject`: instanciates a debug point class, configured with no behavior, and installs it on on an AST node. The debug point is hit only if the receiver is the target object given as argument.
   + `DebugPointManager installNew: aDebugPointClass on: aNode withBehaviors: aListOfBehaviorClasses forObject: anObject`: instanciates a debug point class, configured with the list of behavior classes, and installs it on on an AST node. The debug point is hit only if the receiver is the target object given as argument.

@@ -11,12 +11,12 @@ For these reasons, we introduced a system to generate assertions on the fly base
 To use it, first, you need to write a test with the assertion `see:`.
 This assertion takes as argument the expression whose result you're interested in:
 
-![Test with `see:` assertion, used to generate assertions](./graphics/see-assertion-before-rewriting.png)
+<img src="./graphics/see-assertion-before-rewriting.png" alt="Test with `see:` assertion, used to generate assertions" width="250" height="auto">
 
 Then, when you run the test, the assertion will raise an exception.
 This will open a debugger that will handle the exception to rewrite the assertion into an `assert:equals:` with the result of the tested expression as second argument (1 in the figure below):
 
-![Test generated in the debugger with `see:` assertion, when running the test](./graphics/see-assertion-after-rewriting.png)
+<img src="./graphics/see-assertion-after-rewriting.png" alt="Test generated in the debugger with `see:` assertion, when running the test" width="700" height="auto">
 
 You can then judge by yourself if the actual value is correct or not.
 

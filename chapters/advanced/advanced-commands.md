@@ -101,7 +101,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
 
     ![Skip a message send](graphics/before-skip.png)
 
-    Instead of sending the message that would raise a `MessageNotUnderstood` exception, it simulates as if the message send had returned `1` and stops on the expression `+ 42`. So, stepping this expression will return `43`, as `1 + 42` is evaluated
+    Instead of sending the message that would raise a `MessageNotUnderstood` exception, it simulates as if the message send had returned `1` and stops on the expression `+ 42`: 
+    
+    ![Skip a message send](graphics/after-skip.png)
+    
+    So, stepping this expression will return `43`, as `1 + 42` is evaluated.
 
 
 
@@ -125,4 +129,14 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     - to move back and forth in the top context,
     - to enter blocks from its home context,
     - it can be used to exit blocks to go to an instruction within the home context
+
+    **Example:**
+    After setting the caret to the instruction `a + 1` inside the embedded block (code location referred as 3 in the following figure) and clicking the *Jump to caret* button (referred as 1 in the following figure), from the instruction `a * 42`located further in the method (referred as 2 in the following figure),
+
+    ![Jump to caret](graphics/before-jump-to-caret.png)
+
+    We have now entered the embeddded block and stopped on the target instruction. The state of the program has not changed, so the value of `a` is still `3`:
+
+    ![Jump to caret](graphics/after-jump-to-caret.png)
+
 

@@ -1,4 +1,4 @@
-# Debug Points Browser
+### Debug Points Browser
 
 The debug points browser is a new tool to visualize and configure existing debug points.
 Full details on the new debug points model are [described here](../basics/debug-points.md)
@@ -25,7 +25,7 @@ It is possible to filter the displayed debug points by name, thanks to an input 
 
 ![Filtering the displayed debug points by name, thanks to an input field](./graphics/debug-points-browser-filter-by-name.png)
 
-## Object-centric debug points
+#### Object-centric debug points
 
 To set object-centric debug points, the second button in the inspector toolbar, with the `objects` icon, allows to do the same thing in the same way as former object-centric breakpoints So, this is possible to set object-centric breakpoints and watchpoints on all variables of a target for this object:
 

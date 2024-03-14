@@ -1,8 +1,8 @@
-# Debug Points
+### Debug Points
 
 The debug point system is a model destined to replace the former breakpoint and watchpoint model.
 
-## Types of debug points
+#### Types of debug points
 
 **Debug points** are different types of **instrumentation that are used to debug**. 
 For now, there are two concrete types of debug points: **breakpoints and watchpoints**.
@@ -18,7 +18,7 @@ Moreover, in the Calypso browser, it is also possible to right-click on a piece 
 
 ![Installing basic debug points from the Calypso browser in the method editor](./graphics/debug-points-method-editor-context-menu.png)
 
-## Behaviors of debug points
+#### Behaviors of debug points
 
 A debug point can have **different types of behaviors** that will execute before the debug point is actually hit.
 
@@ -35,7 +35,7 @@ To configure behaviors of existing debug points or at the creation of debug poin
 
 It is also possible to configure debug points via a UI tool, the Debug Point Browser, which is detailed [here](../advanced/debug-points-browser.md).
 
-## Debug Point Targets
+#### Debug Point Targets
 
 Debug points can be installed on different types of targets:
 

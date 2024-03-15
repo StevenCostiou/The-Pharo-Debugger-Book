@@ -2,8 +2,8 @@
 
 In this chapter, we describe the advanced debugging commands (2 in *@fig:advanced-step-toolbar@*) provided by the "Advanced step" menu (1 in *@fig:advanced-step-toolbar@*) in the graphical user interface:
 
-![The debugger advanced step toolbar.](graphics/advanced-step-toolbar.png width=70)
-@fig:advanced-step-toolbar
+![The debugger advanced step toolbar.](graphics/advanced-step-toolbar.png width=70&label=fig:advanced-step-toolbar)
+
 
 These commands allow to perform steps with bigger granularity than the basic ones, as it may be tedious to debug a program with basic steps.
 Some of these commands are experimental features to skip the execution of some parts of the code under debug.

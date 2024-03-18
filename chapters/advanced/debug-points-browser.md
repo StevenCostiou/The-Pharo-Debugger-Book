@@ -15,7 +15,7 @@ All behaviors of the selected can be configured via the right pane of the debug 
 
 When a debug point is selected, according to the target of the debug point, different information are displayed.
 If the target is an AST node, the code of the concerned method is displayed (referred as 3 in Figure *@fig:dp-browser@*), while highlighting the code corresponding to the target node.
-If the target is an instance variable, all concerned methods (referred as 1 in the figure below) are listed and selecting a method displays the corresponding code (referred as 2 in Figure *@fig:dp-browser-variable@*) and highlights the correct variable accesses.
+If the target is an instance variable, all concerned methods (referred as 1 in Figure *@fig:dp-browser-variable@*) are listed and selecting a method displays the corresponding code (referred as 2 in Figure *@fig:dp-browser-variable@*) and highlights the correct variable accesses.
 
 ![Debug Point Browser with a selected debug point set on an instance variable](./graphics/debug-points-browser-variable.png width=70&label=fig:dp-browser-variable)
 
@@ -32,7 +32,7 @@ To set object-centric debug points, the second button in the inspector toolbar, 
 ![Popover button menu, suggesting to insall object-centric debug points for an object on all instance variables](./graphics/debug-points-object-centric-popover-button.png width=75&label=fig:dp-oc-popover)
 
 Just as it was possible before debug points existed, it is still possible to set debug points on only some instance variables of the objects.
-To do that, from the raw view in the inspector, select the variables you want to watch/break on and right-click to open a context menu to install breakpoints/watchpoints on them (Figure *@dp-raw-inspector-context-menu@*).
+To do that, from the raw view in the inspector, select the variables you want to watch/break on and right-click to open a context menu to install breakpoints/watchpoints on them (Figure *@fig:dp-raw-inspector-context-menu@*).
 
 ![Context menu on an instance variable in the raw inspector, suggesting to install object-centric debug points for the selected variable only](./graphics/debug-points-object-centric-raw-context-menu.png width=35&label=fig:dp-raw-inspector-context-menu)
 

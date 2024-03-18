@@ -45,8 +45,10 @@ Debug points can be installed on different types of targets:
   _NB: To put basic breakpoints quickly on AST nodes, it is still possible to double-click the left bar in the method editor, just like with the ancient breakpoint system (Figure *@fig:double-click-editor@*)_
   
   **API:**
+
   + `DebugPointManager installNew: aDebugPointClass on: anASTNode`: instanciates a debug point class, configured with no behavior, and installs it on on an AST node 
   + `DebugPointManager installNew: aDebugPointClass on: aNode withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on on an AST node 
+
 - a _variable_, which can be targeted by selecting a variable in the variable view in the Calypso browser (Figure *@fig:calypso-variable-view@*).
 
   ![Selecting a variable in the variable view in the Calypso browser, to set a debug point on a variable](./graphics/debug-points-variable-view-context-menu.png width=75&label=fig:calypso-variable-view)
@@ -54,20 +56,35 @@ Debug points can be installed on different types of targets:
   In this case, the debug point is reached each time the targeted variable is read or/and written, according to the debug point's configuration.
 
   **API:**
+
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableAccessNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable, whose name is given as argument, in a class hierarchy. The debug point is reached at each reading or writing of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableAccessNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each reading or writing of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableReadNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each reading of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableReadNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each reading of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableWriteNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each writing to this variable.
+  
   + `DebugPointManager installNew: aDebugPointClass inClass: aClass onVariableWriteNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, in a class hierarchy. The debug point is reached at each writing to this variable.
+
 - an _object_, in order to install object-centric debug points. This type of target **wraps another target** (AST node or variable). In this case, the debug point is reached only if the wrapped target is reached and if the receiver is the target instance.
 
   **API:**
+
   + `DebugPointManager installNew: aDebugPointClass on: anASTNode forObject: anObject`: instanciates a debug point class, configured with no behavior, and installs it on on an AST node. The debug point is hit only if the receiver is the target object given as argument.
+
   + `DebugPointManager installNew: aDebugPointClass on: aNode withBehaviors: aListOfBehaviorClasses forObject: anObject`: instanciates a debug point class, configured with the list of behavior classes, and installs it on on an AST node. The debug point is hit only if the receiver is the target object given as argument.
+
   + `DebugPointManager installNew: aDebugPointClass forObject: anObject onVariableAccessNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable, whose name is given as argument, only for the target object given as argument. The debug point is reached at each reading or writing of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass forObject: anObject onVariableAccessNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, only for the target object given as argument. The debug point is reached at each reading or writing of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass forObject: anObject onVariableReadNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable whose name is given as argument, only for the target object given as argument. The debug point is reached at each reading of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass forObject: anObject onVariableReadNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, only for the target object given as argument. The debug point is reached at each reading of this variable.
+
   + `DebugPointManager installNew: aDebugPointClass forObject: anObject onVariableWriteNamed: aSlotNameSymbol`: instanciates a debug point class, configured with no behavior, and installs it on the instance variable whose name is given as argument, only for the target object given as argument. The debug point is reached at each writing to this variable.
+  
   + `DebugPointManager installNew: aDebugPointClass forObject: anObject onVariableWriteNamed: aSlotNameSymbol withBehaviors: aListOfBehaviorClasses`: instanciates a debug point class, configured with the list of behavior classes, and installs it on the instance variable whose name is given as argument, only for the target object given as argument. The debug point is reached at each writing to this variable.

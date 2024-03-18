@@ -26,7 +26,7 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
 
     we get to the next instruction that creates an instance (`#basicNew`), called inside `SindarinDebugger class>>#debug:` (Figure *@fig:after-step-creation@*).
 
-    ![Step to next instance creation](graphics/after-step-next-creation.png width=900&label=fig:after-step-creation)
+    ![Step to next instance creation](graphics/after-step-next-creation.png width=90&label=fig:after-step-creation)
 
 * **Next call in receiver:** Steps the execution until a message is sent to the current context's receiver.
     The execution is stopped and an error message is displayed when one of these situations happen:

@@ -55,7 +55,7 @@ To create such a chain, you can drag a debug point and drop it on a second debug
 
 In this case, the dragged debug point becomes the child in a chain of a debug point on which it is dropped (Figure *@fig:dp-created-chain@*).
 
-![Created debug point chain via drag and drop](./graphics/debug-points-drag-drop.png width=70&label=fig:dp-created-chain)
+![Created debug point chain via drag and drop](./graphics/debug-points-created-chain.png width=70&label=fig:dp-created-chain)
 
 Please note that this is not possible to create circular debug point chains. So, if A is child of B, B cannot be child of A.
 

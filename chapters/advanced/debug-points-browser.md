@@ -45,4 +45,20 @@ The third button in the inspector toolbar, with the `debug` icon, allows to do t
 
 ![Modal opened to choose a debug point whose scope should be changed to the inspected object](./graphics/debug-points-set-object-centric-scope-modal.png width=70&label=fig:dp-inspector-set-scope)
 
+#### UI to Create Debug Point Chains in Debug Points Browser
+
+As [described here](../basics/debug-points.md), it is possible to add `Chain` behaviors to debug points in order to create debug point chains.
+
+To create such a chain, you can drag a debug point and drop it on a second debug point (Figure *@fig:drag-drop@*).
+
+![Drag and drop of debug points to create a debug point chain](./graphics/debug-points-drag-drop.png width=70&label=fig:dp-drag-drop)
+
+In this case, the dragged debug point becomes the child in a chain of a debug point on which it is dropped (Figure *@fig:dp-created-chain@*).
+
+![Created debug point chain via drag and drop](./graphics/debug-points-drag-drop.png width=70&label=fig:dp-created-chain)
+
+Please note that this is not possible to create circular debug point chains. So, if A is child of B, B cannot be child of A.
+
+
+
 

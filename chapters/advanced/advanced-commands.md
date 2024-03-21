@@ -129,7 +129,7 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
 
 
 * **Skip up to:** Skips several instructions in the same context, without executing them, up to the instruction under the caret.
-    The instructions that are skipped are the same that are skipped by the command *skip*: message sends, assignments, returns, jumps and block creations.
+    The instructions that are skipped are the same that are skipped by the command _skip_: message sends, assignments, returns, jumps and block creations.
     The caret needs to be in the top context: don't forget that a non-inlined block context is not the same as its home context (i.e: the context of the method that created the block).
     Also, the caret needs to be after the current instruction: it is not possible to go back to a previous instruction.
 

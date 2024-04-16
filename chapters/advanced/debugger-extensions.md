@@ -93,7 +93,7 @@ StMyDebuggerExtension>>#updatePresenter
 
 The debugger extension is now finished. By creating only 5 small methods, if you activate your debugger extension in the settings, your exception will display in the debugger with an inspector on the exception, only if an exception has been signaled (Figure *@fig:debugger-extension-finished@*).
 
-![The new debugger extension is now displayed in the debugger when an exception is raised](./graphics/debugger-extension-debugger-layout.png width=90&label=fig:debugger-extension-finished)
+![The new debugger extension is now displayed in the debugger when an exception is raised](./graphics/debugger-extension-finished.png width=90&label=fig:debugger-extension-finished)
 
 ##### More advanced features
 
@@ -103,7 +103,7 @@ Indeed, a debugger uses `StDebuggerExtensionVisitor`s to visit its debugger exte
 For now, `StDebuggerExtensionVisitor` has one concrete subclass `StDebuggerExtensionInspectorNodeBuilderVisitor` that visits debugger extensions to add inspector nodes in the debugger inspector.
 This architecture follows the `Visitor` pattern so a debugger extension defines a method `#accept`  that does nothing by default (Figure *@fig:debugger-extension-accept@*).
 
-![Debugger extension's `#accept` method](./graphics/debugger-extension-debugger-accept.png width=70&label=fig:debugger-extension-accept)
+![Debugger extension's `#accept` method](./graphics/debugger-extension-accept.png width=70&label=fig:debugger-extension-accept)
 
 Following the pattern, you could override this method to call a `visitXXX` method (Figure *@fig:debugger-extension-accept-override@*) that you could define in `StDebuggerExtensionVisitor` (Figure *@fig:debugger-extension-visit-definition@*) and override in subclasses to add information from your extension in the debugger.
 
@@ -112,6 +112,7 @@ StMyDebuggerExtension>>#accept: aVisitor
 
 	aVisitor visitMyDebuggerExtension: self
 ```
+
 ```language=Pharo&caption=Adding a #visit method for your debugger extension in the base class of debugger extension visitors&label=fig:debugger-extension-visit-definition
 StDebuggerExtensionVisitor>>#visitMyDebuggerExtension: aStMyDebuggerExtension
 

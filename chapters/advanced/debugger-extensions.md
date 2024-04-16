@@ -4,7 +4,7 @@ Debugger extensions are tools that are directly integrated to the debugger that 
 
 When activated, these extensions appear in the right pane of the debugger, as a page of a notebook (Figure *@fig:debugger-extension-example@*).
 
-![Example of debugger extension displayed in the right pane](./graphics/debugger-extension.png width=90&label=fig:debugger-extension-example)
+![Example of debugger extension displayed in the right pane](./graphics/debugger-extension-example.png width=90&label=fig:debugger-extension-example)
 
 #### Debugger Extension Settings
 
@@ -15,7 +15,7 @@ Each debugger extension has a dedicated submenu in these settings at the followi
 
 ![The debugger extension settings in the system settings](./graphics/debugger-extension-system-settings.png width=90&label=fig:debugger-extension-system-settings)
 
-As it may be tedious to go deep into the system settings to show or hide a debugger extension, a shortcut allows to show/hide a debugger extension from a debugger directly. These settings can be open via a popup by clicking the first button of the action bar, located above the context stack (Figure *@fig:debugger-extension-settings*@).
+As it may be tedious to go deep into the system settings to show or hide a debugger extension, a shortcut allows to show/hide a debugger extension from a debugger directly. These settings can be open via a popup by clicking the first button of the action bar, located above the context stack (Figure *@fig:debugger-extension-settings@*).
 
 ![The debugger extension settings in the debugger](./graphics/debugger-extension-settings.png width=90&label=fig:debugger-extension-settings)
 

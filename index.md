@@ -14,6 +14,8 @@
 
 <!inputFile|path=chapters/emergency-debugger/index.md!>
 
+<!inputFile|path=chapters/extensions/design.md!>
+
 # Extending the Debugger
 
 <!inputFile|path=chapters/extensions/index.md!>
@@ -24,9 +26,7 @@
 
 # Implementation details
 
-## Architectural Aspects
-## Design Choices
-## Testing the Debugger
+<!inputFile|path=chapters/implementation/index.md!>
 
 # External Tools
 

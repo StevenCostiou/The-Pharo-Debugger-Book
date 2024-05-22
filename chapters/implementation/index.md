@@ -135,4 +135,8 @@ This returns `false` so the debugger removes the extension from its extension to
 
 This example does not cover every case described in the previous boolean tables but should be enough to understand as the cases that aren't covered are symmetrical to the cases that are covered.
 
+### The Debug Point Model Design
+
+
+
 ## Testing the Debugger

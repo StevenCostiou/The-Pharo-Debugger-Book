@@ -119,24 +119,100 @@ A debugger opens which initializes itself so it subscribes to its debugger actio
 Then, it initializes all the extension tools that are activated and that accepts this debugger context predicate.
 The debugger also subscribes to extension (de)activations.
 
-Then, the user activates its debugger extension (i.e: `showInDebugger` setting is set to `true`), which causes the debugger to update itself with the messsage `\#updateExtensionsFromAnnouncement:`. The debugger sends the message `\#acceptsPredicate:` to the extension class, which returns `false` and does nothing as a result (line 1 in the first boolean table).
+Then, the user activates its debugger extension (i.e: `showInDebugger` setting is set to `true`), which causes the debugger to update itself with the messsage `#updateExtensionsFromAnnouncement:`. The debugger sends the message `#acceptsPredicate:` to the extension class, which returns `false` and does nothing as a result (line 1 in the first boolean table).
 
-After that, the user performs a step in the debugger, which causes the debugger action model to update its context predicate and to update itself with the message `\#updateStep`. 
+After that, the user performs a step in the debugger, which causes the debugger action model to update its context predicate and to update itself with the message `#updateStep`. 
 When updating its debugger extensions, the debugger collects the extensions that should be displayed (i.e: all activated extension classes that accepts the current context predicate).
-To do that, it sends the message `\#showInDebugger` that returns `true` for the user's debugger extension class. As it returns `true` for this extension class, the debugger sends the message `\#acceptsPredicate` for the same debugger extension class, which also returns `true`.
+To do that, it sends the message `#showInDebugger` that returns `true` for the user's debugger extension class. As it returns `true` for this extension class, the debugger sends the message `#acceptsPredicate` for the same debugger extension class, which also returns `true`.
 Therefore, `aDebuggerExtension class` is added to the extensions to display.
 The debugger checks the currently registered tools. 
 As this extension is currently not displayed, it is added to the debugger's extension tools and displayed in this debugger (line 4 in second boolean table).
 
 Later, the user deactivates its debugger extension.
-So, the debugger receives again the message `\#updateExtensionsFromAnnouncement:` that sends again the message `acceptsPredicate:` to this debugger extension class. 
-As it returns `true`, the debugger sends the message `\#showInDebugger` to this debugger extension class.
+So, the debugger receives again the message `#updateExtensionsFromAnnouncement:` that sends again the message `acceptsPredicate:` to this debugger extension class. 
+As it returns `true`, the debugger sends the message `#showInDebugger` to this debugger extension class.
 This returns `false` so the debugger removes the extension from its extension tools and hides it (line 5 in second boolean table).
 
 This example does not cover every case described in the previous boolean tables but should be enough to understand as the cases that aren't covered are symmetrical to the cases that are covered.
 
 ### The Debug Point Model Design
 
+The goal of _Debug Points_ is to have configurable breakpoints that can have different _behaviors_.
+They are called debug points because when a user instrument some code to debug, it does not necessarily want to open a debugger on the target code location. Following this logic, breakpoints and watchpoints are regrouped into the family of _Debug Points_.
 
+#### Initial Design
+
+![Class Diagram of the _Debug Points_ Model Before Rework](./graphics/dp-class-diagram-old.jpeg width=75&label=fig:dp-class-diagram-old)
+
+Initially, _Debug Points_ are the [work of an intern called Max Zurbriggen](https://github.com/Max-Zurbriggen/PharoDebugPoints), a student of the University of Zurich.
+We describe the model he conceived and implemented, shown in *@fig:dp-class-diagram-old@*
+
+A debug point has a _name_ so that the user can identify them, and targets an _AST node_.
+When installed, it installs a _metalink_ on this node that executes the method `hitWithContext:` of this debug point each time just before the node is reached.
+A debug point also has a target instance that is `nil` by default. If it is not `nil`, the debug point becomes _object-centric_.
+
+A debug point contains _behaviors_ that can be added or remove to configure a debug point.
+A _behavior_ knows its debug point, has a numbered priority and defines a method `execute` to execute a behavior that should be executed when its debug point is hit. This method returns a boolean that determines whether the corresponding debug point should be executed or not.
+Each _behavior_ subclass can hold state useful for their execution.
+There are several types of debug point behaviors: a behavior that disables its debug point after it has been hit _once_, a behavior that _counts_ the number of times its debug point has been hit, a behavior that checks if a _condition_ of the execution is true, a behavior that executes a _script_ and much more.
+
+These _behaviors_ are all executed each time a debug point is hit, ordered by decreasing priority.
+However, if a _behavior_ returns _false_, the behaviors that should have been executed afterwards and its debug point are not executed.
+If all _behaviors_ return `true`, debug points execute their specific code: breakpoints open a debugger while _watchpoints_ save the value of the attached _AST node_.
+
+Finally, all debug points define their `uiElement` class that should be used to display information and/or configure the debug point/_behavior_ in a GUI called the _Debug Point Browser_.
+
+#### Design at Release, After Rework
+
+![Class Diagram of the _Debug Points_ Model After Rework](./graphics/dp-class-diagram-new.jpeg width=75&label=fig:dp-class-diagram-new)
+
+We describe the improvements we provided to the previous model to fix its weaknesses.
+The two following paragraphs illustrate the class diagram shown in *@fig:dp-class-diagram-new@*.
+
+##### Debug Point Targets
+
+A problem with the _Debug Point_ model described previously is that the target of a debug point can only be a _node_.
+They cannot target _variables_ like in the former breakpoint model and implementing it while keeping this model would result in installing dozens of debug point for each AST node that access the target variable, which is overwhelming.
+
+So, the goal is to be able to perform the same actions on different entities (i.e: AST nodes and instance variables, at least).
+To do this in object-oriented programming, nothing is better than **abstractions**.
+Therefore, I created an abstract class `DebugPointTarget` that define what should be specified by subclasses: basically what should be done differently between the subclasses.
+In our case, what is different between a node and a variable is: 
+	
+- the API used to install a metalink on it,
+- the API to access the _target class_ (e.g: the class of the method represented by the method node of an AST node VS the class defining an instance variable),
+- the API used to _browse_ the class of the target
+
+In the end, a debug point _target_ is a wrapper for the real target (i.e: a node or a variable) that allows to define these abstractions.
+The subclasses then implement these abstractions.
+One subclass wraps an AST node whereas another subclass wraps an instance variable.
+This solution has the advantage to be extensible as I defined only once what is common between nodes and variables and to create a new type of debug point target, one would just need to create a subclass of debug point _target_ that implements these abstractions.
+As a result, to set a debug point on a variable, the user only see one to instead of dozens of smaller ones, which can easily be (de)activated.
+
+These abstractions are defined directly in the `DebugPointTarget` class but also in an intermediary abstract class `DebugPointClassTarget`.
+We implemented it this way to be able to _decorate_ it, following the _Decorator_ design pattern.
+This works well because both AST node and variables can be decorated to be object-centric with a `DebugPointObjectTarget`.
+The only difference between an object target is the way to install the metalink. The object-centric decorator installs its subtarget on the wrapped object, while a class target install it on its target class.
+This also adds an abstraction to define the _scope_ of a target (i.e: class or target instance).
+This is better than the model previously described as the target instance could be `nil`, which would always imply to do a check that this is not the case.
+Moreover, for object-centric ddebug points, the former model used to check that the receiver was identical to the target instance each time the debug point was hit, which is slow and not object-oriented.
+Our implementation take advantage of the API of metalinks that is the same to install one on a class or on an object, and that is optimized.
+
+##### Debug Point Behavior Refactoring
+
+Another problem with the old _Debug Point_ model is the way debug point _behaviors_ are implemented.
+Indeed, by observing these behaviors, it appears there are clearly two types of behaviors:
+
+- behaviors that perform conditional checks and that return the result,
+- behaviors that execute code that perform side-effects on the current execution and that always return `true`.
+
+This design is weird as a good principle in object-oriented programming is to only have methods that return something or methods that have side-effects but not methods that do both.
+
+Moreover, this can cause some problems because, in the old model, if a behavior that performs side-effects has a higher priority than a behavior that performs a check that would return `false`, then the side-effects would have been done even though they should not have.
+Indeed, if a condition return `false`, then it means that the debug point should not be hit, and notably that no side-effect should be applied.
+For instance, if a condition behavior of a debug point returns `false`, the count behavior of the same debug point should not increase its counter.
+
+To make a clear separation between both, we added two intermediary abstract classes of debug point _behaviors_ for both types.
+Debug points now hold these behaviors in two different collections and the corresponding behavior abstract classes define in (resp. from) which list their instances should be added (resp. removed).
 
 ## Testing the Debugger

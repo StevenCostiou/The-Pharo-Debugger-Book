@@ -1,6 +1,7 @@
 ### Introduction
 
-Chest allows you to store objects from anywhere, to keep them around to check equality...   
+_Chest_ is a tool providing an \acrshort{api} and a \acrshort{gui} to store objects from a program A and to access it from a program B. 
+For example, this can be used to keep to check equality between objects from the two programs...
 
 ![Chest overview](./figures/chest-overview.png)
   

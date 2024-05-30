@@ -11,7 +11,7 @@ Now, the project is maintained by the [_pharo-spec_ organization](https://github
 
 #### Install Chest
 
-```smalltalk
+```language=Pharo
 Metacello new
     baseline: 'Chest';
     repository: 'github://pharo-spec/Chest';

@@ -1,346 +1,301 @@
 ### API Description
 
-In this chapter, we detail the API of Chest and give examples of its usage. 
+This section details the _API_ of _Chest_ and give examples of its usage. 
 
 #### Chest class-side API
 
-In this section, we describe the API that can be used on the class `Chest`.
+This subsection describes the _API_ that can be used on the class `Chest`.
 
 ##### How to create instances
 
-- `Chest class>>#new`
+- `Chest class>>#new` creates a chest with a default name that is in the form of `Chest_autoIncrementedNumber`.
+	
+	In the examples below, if no other chest has been created before, the names of the created chests are respectively _Chest\_1_ and _Chest\_2_: 
 
-creates a chest with a default name that is in the form of `Chest_autoIncrementedNumber`.
+	```language=Pharo
+	Chest new. "Chest_1"
+	Chest new. "Chest_2"
+	```
 
-In the examples below, if no other chest has been created before, the names of the created chests are respectively "Chest_1" and "Chest_2": 
+- `Chest class>>#newNamed:` creates a chest with the name given as argument if no other chest is already named so, else an exception `ChestKeyAlreadyInUseError` is raised.
 
-```smalltalk
-Chest new. "Chest_1"
-Chest new. "Chest_2"
-```
+	For example, if no other chest is already called "toto", the piece of code below creates a chest that is named as "toto":
 
-- `Chest class>>#newNamed:`
+	```language=Pharo
+	Chest newNamed: 'toto'. "its name is 'toto'"
+	```
 
-creates a chest with the name given in parameter if no other chest is already named so, else an exception `ChestKeyAlreadyInUseError` is raised.
+	On the contrary, if another chest is already called "toto", the same piece of code would raise a `ChestKeyAlreadyInUseError` because two chests cannot have the same name:
 
-For example, if no other chest is already called "toto", the piece of code below creates a chest that is named as "toto":
-
-```smalltalk
-Chest newNamed: 'toto'. "its name is 'toto'"
-```
-
-On the contrary, if another chest is already called "toto", the same piece of code would raise a `ChestKeyAlreadyInUseError` because two chests cannot have the same name:
-
-```smalltalk
-Chest newNamed: 'toto'. "ChestKeyAlreadyInUseError as a chest named 'toto' already exists"
-```
+	```language=Pharo
+	Chest newNamed: 'toto'. "ChestKeyAlreadyInUseError as a chest named 'toto' already exists"
+	```
 
 ##### Accessors
 
-- `Chest class>>#allChests`
+- `Chest class>>#allChests` returns an ordered collection that contains all chest instances.
 
-returns an ordered collection that contains all chest instances.
+If we suppose that there are no other chests than the ones created above, the piece of code *@code:chest-allChests@* returns a collection with two chests: the default chest and the chest named _toto_:
 
-If we suppose that there are no other chests than the ones created above, the piece of code returns a collection with two chests: the default chest and the chest named "toto":
-
-```smalltalk
+```language=Pharo&label=code:chest-allChests
 Chest allChests "{DefaultChest. totoChest}"
 ```
 
-- `Chest class>>#chestDictionary`
+- `Chest class>>#chestDictionary` returns a dictionary containing all chests with their name as key.
 
-returns a dictionary containing all chests with their name as key.
+	If we suppose that there are no other chests than the ones created above, the piece of code *@code:chest-chestDictionary@* returns a dictionary with two chests: the default chest, with `'Default'` as a key, and the chest named _toto_, with `'toto'` as a key:
 
-If we suppose that there are no other chests than the ones created above, the piece of code returns a dictionary with two chests: the default chest, with 'Default' as a key, and the chest named "toto", with 'toto' as a key:
+	```language=Pharo&label=code:chest-chestDictionary
+	Chest chestDictionary "{'Default' -> DefaultChest. 'toto' -> totoChest}"
+	```
 
-```smalltalk
-Chest chestDictionary "{'Default' -> DefaultChest. 'toto' -> totoChest}"
-```
+- `Chest class>>#named:` returns the chest that is named as the string given as argument if it exists, else raises an exception `KeyNotFound`.
 
-- `Chest class>>#named:`
+	The expression below can be used to get the chest named 'toto', if it exists:
 
-returns the chest that is named as the string in argument if it exists, else raises an exception `KeyNotFound`.
+	```language=Pharo
+	Chest named: 'toto' "chest named 'toto'"
+	```
 
-The expression below can be used to get the chest named 'toto', if it exists:
+	However, as no chest is named _'titi'_, the expression below would raise a `KeyNotFound`:
 
-```smalltalk
-Chest named: 'toto' "chest named 'toto'"
-```
+	```language=Pharo
+	Chest named: 'titi' "KeyNotFound"
+	```
 
-However, no chest is named 'titi', the expression below would raise a `KeyNotFound`:
+- `Chest class>>#defaultInstance` (or `Chest class>>#default`)
 
-```smalltalk
-Chest named: 'titi' "KeyNotFound"
-```
+	Most of `Chest`'s instance-side _API_ can be used on the class `Chest` itself. These methods return the default chest that is used when you use `Chest`'s instance-side API directly on `Chest class`.
+	If the default chest doesn't already exist, calling these methods lazily create it.
 
-- `Chest class>>#defaultInstance` ( or `Chest class>>#default`).
+	For example, the expression below returns `true`:
 
-You can use most of Chest's instance-side API on the class `Chest` itself. These methods returns the default chest that is used when you use `Chest`'s instance-side API directly on `Chest class`.
-If the default chest doesn't already exist, calling these methods lazily create it.
+	```language=Pharo
+	Chest defaultInstance == Chest default "true"
+	```
 
-For example, the expression below returns `true`:
+- `Chest class>>#announcer` is an helper method that returns the unique instance of `ChestAnnouncer`, which propagates changes related to chests to any subscriber.
 
-```smalltalk
-Chest defaultInstance == Chest default "true"
-```
+	The example below subscribes `self` to the `ChestAnnouncer` singleton to 3 different events; when a new chest chest has been created, when the content of a chest has changed and when a chest has been removed:
 
-- `Chest class>>#announcer`
+	```language=Pharo
+	Chest announcer weak when: ChestCreated send: #eventNewChest: to: self;
+							when: ChestUpdated send: #eventContentOfChestUpdated: to: self.
+							when: ChestRemoved send: #eventChestRemoved: to: self.
+	```
 
-helper method that returns the unique instance of `ChestAnnouncer`, which propagates changes related to chests to any subscriber.
+	When the event occurs, the methods that are called (in the example: `#eventNewChest:`, `#eventContentOfChestUpdated:` and `#eventChestRemoved:`) take the related event as an argument.
 
-The example belows subscribes `self` to the `ChestAnnouncer` singleton to 3 different events; when a new chest chest has been created, when the content of a chest has changed and when a chest has been removed:
+- `Chest class>>#weak` returns the class `WeakChest`, subclass of `Chest`. You can use the same _API_ on this class as you would on `Chest class`, in order to create or access chests that hold weak references to objects. This means, that storing your objects in a weak chest doesn't prevent them from being garbage-collected.
 
-```smalltalk
-Chest announcer weak when: ChestCreated send: #eventNewChest: to: self;
-						when: ChestUpdated send: #eventContentOfChestUpdated: to: self.
-						when: ChestRemoved send: #eventChestRemoved: to: self.
-```
+	For example, the expression below creates a new weak chest named as "wtiti", if it doesn't already exist:
 
-When the event happens, the methods that are called (in the example: `#eventNewChest:`, `#eventContentOfChestUpdated:` and `#eventChestRemoved:`) take the related event as an argument.
-
-- `Chest class>>#weak`
-
-returns the class `WeakChest`, subclass of `Chest`. You can use the same API on this class as you would on `Chest class`, in order to create or access chests that hold weak references to objects. This means, that storing your objects in a weak chest doesn't prevent them from being garbage-collected.
-
-For example, the expression below creates a new weak chest named as "wtiti", if it doesn't already exist:
-
-```smalltalk
-Chest weak newNamed: 'wtiti' "weak chest named as 'wtiti'"
-```
+	```language=Pharo
+	Chest weak newNamed: 'wtiti' "weak chest named as 'wtiti'"
+	```
 
 ##### How to perform actions
 
-- `Chest class>>#inChest:at:put:`
+- `Chest class>>#inChest:at:put:` puts the object given as third argument with the name given as second argument in the chest named as first argument. This chest is lazily created if it doesn't exist yet.
 
-puts the object in third argument with the name given in second argument in the chest named as first argument. This chest is lazily created if it doesn't exist yet.
+	In the example below, the object `42` is stored as _toto_ in the chest named _toto_:
 
-In the example below, the object 42 is stored as "toto" in the chest named "toto":
+	```language=Pharo
+	(Chest named: 'toto') at: 'toto' put: 42. "stores 42 as 'toto' in chest named as 'toto'.
+	```
 
-```smalltalk
-(Chest named: 'toto') at: 'toto' put: 42. "stores 42 as 'toto' in chest named as 'toto'.
-```
+	If the chest _toto_ didn't exist, it would be created automatically.
+	_Also, please note that a chest cannot contain the same object twice. So, if the chest named as "toto" already contained the object `42`, it would simply be renamed as "toto" in this chest._
 
-If the chest "toto" didn't exist, it would be created automatically.
-*Also, please note that a chest cannot contain the same object twice. So, if the chest named as "toto" already contained the object 42, it would simply be renamed as "toto" in this chest.*
+- `Chest class>>#unsubscribe:` is an helper method that unsubscribes its argument from the unique instance of `ChestAnnouncer`.
 
-- `Chest class>>#unsubscribe:`
+	For example, the expression below unsubscribes `self` from the `ChestAnnouncer` singleton:
 
-helper method that unsubscribes its argument from the unique instance of `ChestAnnouncer`.
-
-For example, the expression below unsubscribes `self` from the `ChestAnnouncer` singleton:
-
-```smalltalk
-Chest unsubscribe: self
-```
-
+	```language=Pharo
+	Chest unsubscribe: self
+	```
 
 #### Chest instance-side API
 
-In this section, we describe the API that can be used on an instance of `Chest`. Methods marked by the symbol `(*)` can also be used on the class `Chest` itself. In this case, it is equivalent to using the API on the default instance of `Chest`. 
+This subsection describes the _API_ that can be used on an instance of `Chest`. Methods marked by the symbol `(*)` can also be used on the class `Chest` itself. In this case, it is equivalent to using the _API_ on the default instance of `Chest`. 
 
 ##### Accessors
 
-- `Chest>>#name`: 
+- `Chest>>#name` returns the receiver chest's name.
 
-returns the receiver chest's name.
+	For example, the expression below evaluates to `true`:
 
-For example, the expression below evaluates to `true`:
+	```language=Pharo
+	(Chest named: 'toto') name = 'toto' "true"
+	```
 
-```smalltalk
-(Chest named: 'toto') name = 'toto' "true"
-```
+- `Chest>>#contents` (\*) returns a copy of the receiver chest's contents, as a dictionary that contains all objects in the chest with their name as key.
 
-- `Chest>>#contents`: (*)
+	For example, evaluating the piece of code below returns a dictionary that associates `42` to `'toto'` and `144` to `'titi'`:
 
-returns a copy of the receiver chest's contents, as a dictionary that contains all objects in the chest with their name as key.
+	```language=Pharo
+	| c |
+	c := Chest new.
+	Chest inChest: c name at: 'toto' put: 42.
+	Chest inChest: c name at: 'titi' put: 144.
+	c contents "{'toto' -> 42. 'titi' -> 144}"
+	```
 
-For example, evaluating the piece of code below returns a dictionary that associates 42 to "toto" and 144 to "titi":
+- `Chest>>#at: ` (\*) returns the object, contained in the receiver chest, whose name is the string given as argument if it exists, else an exception `KeyNotFound` is raised.
 
-```smalltalk
-| c |
-c := Chest new.
-Chest inChest: c name at: 'toto' put: 42.
-Chest inChest: c name at: 'titi' put: 144.
-c contents "{'toto' -> 42. 'titi' -> 144}"
-```
+	For example, if the chest named as _toto_ stores `42` as _titi_, then the expression below returns `42`:
 
-- `Chest>>#at: `: (*)
+	```language=Pharo
+	(Chest named: 'toto') at: 'titi'. "42"
+	```
 
-returns the object, contained in the receiver chest, whose name is the string in argument if it exists, else an exception `KeyNotFound` is raised.
+	On the contrary, if no object is named as _titi_ in the chest named as _toto_, then the same expression raises `KeyNotFound`:
 
-For example, if the chest named as "toto" stores 42 as "titi", then the expression below returns 42:
-
-```smalltalk
-(Chest named: 'toto') at: 'titi'. "42"
-```
-
-On the contrary, if no object is named as "titi" in the chest named as "toto", then the same expression raises a `KeyNotFound`:
-
-```smalltalk
-(Chest named: 'toto') at: 'titi' "KeyNotFound"
-```
+	```language=Pharo
+	(Chest named: 'toto') at: 'titi' "KeyNotFound"
+	```
 
 ##### How to perform actions
 
-- `Chest>>#add:` (*)
+- `Chest>>#add:` (\*) adds the object, given as argument, to the receiver chest, with a default name that is in the form of `chestName_autoIncrementedNumber`.
 
-adds the object in argument to the receiver chest, with a default name that is in the form of `chestName_autoIncrementedNumber`.
+	In the piece of code below, we add `42` then `144` to a new chest named _MyChest_. Thus, `42` is stored with the key _MyChest\_1_ and `144` is stored with the key _MyChest\_2_:
 
-In the piece of code below, we add 42 then 144 to a new chest named "MyChest". Thus, 42 is stored with the key "MyChest_1" and 144 is stored with the key "MyChest_2":
+	```language=Pharo
+	| c |
+	c := Chest newNamed: 'MyChest'.
+	c add: 42. "MyChest_1 -> 42"
+	c add: 144 "MyChest_2 -> 144"
+	```
 
-```smalltalk
-| c |
-c := Chest newNamed: 'MyChest'.
-c add: 42. "MyChest_1 -> 42"
-c add: 144 "MyChest_2 -> 144"
-```
+- `Chest>>#at:put:` (\*) adds the object igiven as second argument to the receiver chest with the name in first argument if no other object is already named so, else an exception `ChestKeyAlreadyInUseError` is raised.
 
-- `Chest>>#at:put:` (*) 
+	In the example below, in a new chest, `42` is stored as _toto_. Then, trying to store `144` as _toto_ raises a `ChestKeyAlreadyInUseError` because two objects cannot have the same name:
 
-adds the object in second argument to the receiver chest with the name in first argument if no other object is already named so, else an exception `ChestKeyAlreadyInUseError` is raised.
+	```language=Pharo
+	| c |
+	c := Chest new.
+	c at: 'toto' put: 42. "toto -> 42"
+	c at: 'toto' put: 144 "ChestKeyAlreadyInUseError"
+	```
 
-In the example below, in a new chest, 42 is stored as "toto". Then, trying to store 144 as "toto" raises a `ChestKeyAlreadyInUseError` because two objects cannot have the same name:
+	*Also, please note that a chest cannot contain the same object twice. So, if the chest named as "toto" already contained the object 42, it would simply be renamed as "toto" in this chest.*
 
-```smalltalk
-| c |
-c := Chest new.
-c at: 'toto' put: 42. "toto -> 42"
-c at: 'toto' put: 144 "ChestKeyAlreadyInUseError"
-```
+- `Chest>>#at:put:ifPresent:` (\*) adds the object given as second argument to the receiver chest with the name given as first argument if no other object is already named so, else the block in third argument is evaluated with zero argument.
 
-*Also, please note that a chest cannot contain the same object twice. So, if the chest named as "toto" already contained the object 42, it would simply be renamed as "toto" in this chest.*
+	In the exemple below, in a new chest, 42 is stored as "toto". Then, we try to store 144 as "toto" and if the key is already use, we try to store it as "titi" instead. As the key "toto" is already used by 42, 144 is stored as "titi":
 
-- `Chest>>#at:put:ifPresent:` (*)
+	```language=Pharo
+	| c |
+	c := Chest new.
+	c at: 'toto' put: 42 ifPresent: [Chest at: 'titi' put: 42]. "toto -> 42"
+	c at: 'toto' put: 144 ifPresent: [ Chest at: 'titi' put: 144 ] "titi -> 144"
+	```
 
-adds the object in second argument to the receiver chest with the name in first argument if no other object is already named so, else the block in third argument is evaluated with zero argument.
+- `Chest>>#remove:` (\*) removes the object given as argument from the receiver chest if it is there, else an exception `KeyNotFound` is raised.
 
-In the exemple below, in a new chest, 42 is stored as "toto". Then, we try to store 144 as "toto" and if the key is already use, we try to store it as "titi" instead. As the key "toto" is already used by 42, 144 is stored as "titi":
+	For example, if the chest named _toto_ contains the object `42`, then the following code snippet successfully removes `42` from this chest. Then it tries to remove 42 from this chest a second time, in which case a `KeyNotFound` is raised because the object is not there anymore:
 
-```smalltalk
-| c |
-c := Chest new.
-c at: 'toto' put: 42 ifPresent: [Chest at: 'titi' put: 42]. "toto -> 42"
-c at: 'toto' put: 144 ifPresent: [ Chest at: 'titi' put: 144 ] "titi -> 144"
-```
+	```language=Pharo
+	| c |
+	c := Chest named: 'toto'.
+	c contents includes: 42 "true"
 
-- `Chest>>#remove:` (*) 
+	c remove: 42. "42 is removed from c"
 
-removes the object in argument from the receiver chest if it is there, else an exception `KeyNotFound` is raised.
+	c contents includes: 42. "false"
 
-For example, if the chest named "toto" contains the object 42, then the following code snippet successfully removes 42 from this chest. Then it tries to remove 42 from this chest a second time, in which case a `KeyNotFound` is raised because the object is not there anymore:
+	c remove: 42 "KeyNotFound"
+	```
 
-```smalltalk
-| c |
-c := Chest named: 'toto'.
-c contents includes: 42 "true"
+- `Chest>>#removeObjectNamed:` (\*) removes from the receiver chest the object named as the argument if the key exists, else an exception `ObjectNotInChestError` is raised.
 
-c remove: 42. "42 is removed from c"
+	For example, if the chest named _toto_ stores an object named as _tata_, then the following code snippet removes the object named as _tata_ from this chest. Then it tries to remove a second time the object named as _tata_ from this chest, in which case an `ObjectNotInChestError` is raised because the key is not used anymore.
 
-c contents includes: 42. "false"
+	```language=Pharo
+	| c |
+	c := Chest named: 'toto'.
+	c contents includesKey: 'tata' "true"
 
-c remove: 42 "KeyNotFound"
-```
+	c removeObjectNamed: 'tata'. "obj named 'tata' is removed from c"
 
-- `Chest>>#removeObjectNamed:` (*) 
+	c contents includesKey: 'tata'. "false"
 
-removes from the receiver chest the object named as the argument if the key exists, else an exception `ObjectNotInChestError` is raised.
+	c removeObjectNamed: 'tata' "ObjectNotInChestError"
+	```
 
-For example, if the chest named "toto" stores an object named as "tata", then the following code snippet removes the object named as "tata" from this chest. Then it tries to remove a second time the object named as "tata" from this chest, in which case an `ObjectNotInChestError` is raised because the key isn't used anymore.
+- `Chest>>#empty` removes the entire contents of the receiver chest:
 
-```smalltalk
-| c |
-c := Chest named: 'toto'.
-c contents includesKey: 'tata' "true"
+	```language=Pharo
+	| c |
+	c := Chest new.
+	c at: 'toto' put: 42.
+	c at: 'titi' put 144.
 
-c removeObjectNamed: 'tata'. "obj named 'tata' is removed from c"
+	c contents isEmpty. "false"
 
-c contents includesKey: 'tata'. "false"
+	c empty.
 
-c removeObjectNamed: 'tata' "ObjectNotInChestError"
-```
+	c contentns isEmpty "true"
+	```
 
-- `Chest>>#empty`: 
+- `Chest>>#remove` completely deletes the receiver chest from the list of existing chests. It cannot be accessed afterwards:
 
-removes the entire contents of the receiver chest:
+	```language=Pharo
+	| c cname |
+	c := Chest new.
+	cname := c name.
+	Chest chestDictionary includesKey: cname. "true"
 
-```smalltalk
-| c |
-c := Chest new.
-c at: 'toto' put: 42.
-c at: 'titi' put 144.
+	c remove.
 
-c contents isEmpty. "false"
+	Chest chestDictionary includesKey: cname. "false"
+	```
 
-c empty.
+- `Chest>>#name:` renames the receiver chest as the string in argument if no other chest is already named so, else an exception `ChestKeyAlreadyInUseError` is raised.
 
-c contentns isEmpty "true"
-```
+	For example, if there exist only two chests named "toto" and "titi", then it is possible to rename "toto" into "tata" but not into "titi", in which case a `ChestKeyAlreadyInUseError` is raised:
 
-- `Chest>>#remove`
+	```language=Pharo
+	| toto titi |
+	toto := Chest named: 'toto'.
+	titi := Chest named: 'titi'.
 
-completely deletes the receiver chest from the list of existing chests. It cannot be accessed afterwards:
+	toto name: 'tata'.
+	toto name "tata".
 
-```smalltalk
-| c cname |
-c := Chest new.
-cname := c name.
-Chest chestDictionary includesKey: cname. "true"
+	toto name: 'titi'. "ChestKeyAlreadyInUseError"
+	toto name "tata"
+	```
 
-c remove.
+- `Chest>>#renameObject:into:`, inside the receiver chest, renames the object given as first argument into the string given as second argument if the object is in the chest, else an exception `ObjectNotInChestError` is raised, and if no other object is already named so else an exception `ChestKeyAlreadyInUseError` is raised.
 
-Chest chestDictionary includesKey: cname. "false"
-```
+	If the chest named as _toto_ contains only `42` as _titi_ and `144` as _tata_, then the piece of code below renames `42` to _tutu_:
 
-- `Chest>>#name:` 
+	```language=Pharo
+	(Chest named: 'toto') at: 'titi'. "42"
+	(Chest named: 'toto') renameObject: 42 into: 'tutu'.
+	(Chest named: 'toto') at: 'tutu'. "42"
+	(Chest named: 'toto') at: 'titi' "KeyNotFound"
+	```
 
-renames the receiver chest as the string in argument if no other chest is already named so, else an exception `ChestKeyAlreadyInUseError` is raised.
+	Under the same circumstances, the following code snippet raises an `ObjectNotInChestError` because it tries to rename `666` that is not in the chest named as _toto_:
 
-For example, if there exist only two chests named "toto" and "titi", then it is possible to rename "toto" into "tata" but not into "titi", in which case a `ChestKeyAlreadyInUseError` is raised:
+	```language=Pharo
+	(Chest named: 'toto) contents includes: 666 "false"
+	(Chest named: 'toto') renameObject: 666 into 'anyValidName' "ObjectNotInChestError"
+	```
 
-```smalltalk
-| toto titi |
-toto := Chest named: 'toto'.
-titi := Chest named: 'titi'.
+	Finally, trying to rename 144 into "tutu" will raise a `ChestKeyAlreadyInUseError` because 42 is already named so:
 
-toto name: 'tata'.
-toto name "tata".
+	```language=Pharo
+	(Chest named: 'toto') renameObject: 144 into: 'tutu' "ChestKeyAlreadyInUseError"
+	```
 
-toto name: 'titi'. "ChestKeyAlreadyInUseError"
-toto name "tata"
-```
+- `Chest>>#inspectAt:` inspect the object named as the string given as argument in the receiver chest:
 
-- `Chest>>#renameObject:into:`: 
+	For example, the following expression opens an inspector on the object stored as _titi_ in the chest named as _toto_:
 
-inside the receiver chest, renames the object in first argument into the string in second argument if the object is in the chest, else an exception `ObjectNotInChestError` is raised, and if no other object is already named so else an exception `ChestKeyAlreadyInUseError` is raised.
-
-If the chest named as "toto" contains only 42 as "titi" and 144 as "tata", then the piece of code below renames 42 to "tutu":
-
-```smalltalk
-(Chest named: 'toto') at: 'titi'. "42"
-(Chest named: 'toto') renameObject: 42 into: 'tutu'.
-(Chest named: 'toto') at: 'tutu'. "42"
-(Chest named: 'toto') at: 'titi' "KeyNotFound"
-```
-
-Under the same circumstances, the following code snippet raises an `ObjectNotInChestError` because it tries to rename 666 that is not in the chest named as "toto":
-
-```smalltalk
-(Chest named: 'toto) contents includes: 666 "false"
-(Chest named: 'toto') renameObject: 666 into 'anyValidName' "ObjectNotInChestError"
-```
-
-Finally, trying to rename 144 into "tutu" will raise a `ChestKeyAlreadyInUseError` because 42 is already named so:
-
-```smalltalk
-(Chest named: 'toto') renameObject: 144 into: 'tutu' "ChestKeyAlreadyInUseError"
-```
-
-- `Chest>>#inspectAt:`: 
-
-inspect the object named as the argument in the receiver chest:
-
-For example, the following expression opens an inspector on the object stored as "titi" in the chest named "toto":
-
-```smalltalk
-(Chest named: 'toto') inspectAt: 'titi'
-```
+	```language=Pharo
+	(Chest named: 'toto') inspectAt: 'titi'
+	```

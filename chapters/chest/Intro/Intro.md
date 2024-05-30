@@ -1,6 +1,6 @@
 ### Chest's Introduction
 
-_Chest_ is a tool providing an \acrshort{api} and a \acrshort{gui} to store objects from a program A and to access it from a program B. 
+_Chest_ is a tool providing an _API_ and a Graphical User Interface (_GUI_) to store objects from a program A and to access it from a program B. 
 For example, this can be used to keep to check equality between objects from the two programs...
 
 #### Chest's Repositories
@@ -26,7 +26,7 @@ Instances of `Chest` hold strong references to stored objects, which means that 
 
 #### Open Chest
 
-_Chest_'s main graphical user interface can be opened **via an entry in the "Debug" world menu** of Pharo (Figure *@fig:chest-debug-menu@*).
+_Chest_'s main _GUI_ can be opened **via an entry in the "Debug" world menu** of Pharo (Figure *@fig:chest-debug-menu@*).
 
 ![_Chest_ in _Debug_ World Menu](./figures/chest-debug-menu.png width=70&label=fig:chest-debug-menu)
 

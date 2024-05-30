@@ -1,4 +1,67 @@
 ### Chest Integration to Pharo
 
-`What do we do about the integration of Chest to the debugger? The debugger extension still works but this is not possible to evaluate chest variables from the debugger. The fix is easy, but no one answers me. I will try to do the fix myself`
+#### Commands in context
+
+##### Store object into chest
+
+If you right-click on a code presenter with an `SpCodeInteractionModel` or `StDebuggerContextInteractionModel` (e.g: playground, debugger etc.), you can evaluate an expression and store the result in the chest of your choice, with the name of your choice:
+
+![Store object context menu, inside the debugger](./figures/chest-store-object-context-menu.png)
+
+![Store object popup](./figures/chest-store-object-popup.png)
+
+![Chest tree view inside the debugger, after having stored an object](./figures/chest-tree-view-after-store.png)
+
+##### Load object from a chest into a playground or a debugger
+
+It's also possible to load objects from a chest into these code presenters:
+
+![Load object context menu, inside the debugger](./figures/chest-load-context-menu.png)
+
+![Load object popup](./figures/chest-load-object-popup.png)
+
+![Usage of the Chest variable inside the debugger, after having loaded the object](./figures/chest-variable-usage-after-load.png)
+
+And then variables can be seen from any other context if it has been loaded in a debugger and these variables can be seen in the debugger inspector:
+
+![Chest variable, in the debugger inspector](./figures/chest-variable-in-debugger-inspector.png)
+
+Chest, as a debugger extension, provides a playground. All bindings between this playground and the debugger selected context are shared. So: all variables defined in this playground are recognized by the debugger and all variables from the debugger's selected context or loaded from Chest into the debugger are recognized by the playground. However, only the variables loaded from Chest (via the load menu entry described above) are displayed in the debugger inspector:
+
+![Variable from Chest playground, not visible in the debugger inspector](./figures/variable-from-chest-playground-are-not-visible-in-debugger-inspector.png)
+
+##### Inject code to access an object inside a chest, in a playground or in the debugger
+
+To make it easier to access the content of a chest in a playground or in the debugger, it is possible to use the **Paste object from chest >** sub-menu.
+This sub-menu allows to choose a chest and the key of an object inside the chest.
+
+![Paste object from Chest context menu](./figures/chest-paste-object-from-chest-context-menu.png)
+
+When clicking on a variable name, the necessary code to access the corresponding object is pasted where you had put your cursor in the playground/debugger:
+
+![Injected code for Chest, after having pasted the object](./figures/chest-injected-code-after-paste.png)
+
+This command allows you to access objects from a chest, without relying on your memory of the `Chest` API.
+
+##### Simpler code injection in any spec code presenter
+
+The method described above to access objects in chests implies that your objects need to be stored in a chest with a name that you must remember...
+
+Sometimes, you would like to access objects quickly, without needing to give a name to an object that is stored...
+
+That's why it is possible to copy / paste (=inject code to access) to / from a "Clipboard Chest", just as you would do to copy/paste text to/from the clipboard.
+
+To do that, you just need to select the expression that you want to evaluate and whose results should be stored in the "Clipboard Chest", and then select **Copy object in a clipboard chest** in the context menu:
+
+![Copy object to Chest Clipboard context menu](./figures/chest-copy-object-to-clipboard-context-menu.png)
+
+This will store the result of the expression into the default clipboard chest. Please note, that if you "copy" another object to the clipboard chest, it will replace the previous copied object. Note also that the clipboard chest is a weak chest, so your object inside the clipboard chest can become `nil` if it gets garbage-collected.
+
+In order to inject the code to access the object, you should then select in the context menu: **Paste last object copied to clipboard**:
+
+![Paste last object from Chest Clipboard context menu](./figures/chest-paste-last-object-from-clipboard-context-menu.png)
+
+And the code to access your object is now pasted:
+
+![Injected code for Chest, after having pasted the object from Chest Clipboard](./figures/chest-injected-code-after-paste-from-clipboard.png)
 

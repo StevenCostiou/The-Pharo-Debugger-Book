@@ -1,16 +1,24 @@
 ### Chest Integration to Pharo
 
-#### Commands in context
+In addition to providing its main _GUI_ described in the previous chapter, _Chest_ is also integrated to other tools in Pharo in differents ways.
+
+#### Chest Commands in context menus
+
+_Chest_ provides a lot of commands to ease its use in the other Pharo tools, accessible from the context menu of these tools.
+This section describes each of these commands
 
 ##### Store object into chest
 
-If you right-click on a code presenter with an `SpCodeInteractionModel` or `StDebuggerContextInteractionModel` (e.g: playground, debugger etc.), you can evaluate an expression and store the result in the chest of your choice, with the name of your choice:
+![Store object context menu, inside the debugger](./figures/chest-store-object-context-menu.png width=70&label=fig:chest-store-context-menu) 
 
-![Store object context menu, inside the debugger](./figures/chest-store-object-context-menu.png)
+By right-clicking on a code presenter with an `SpCodeScriptingInteractionModel` or `StDebuggerContextInteractionModel` (e.g: playground, debugger), it is possible to evaluate an expression and store the result object into a chest (Figure *@fig:chest-store-context-menu@*).
+In the example in (Figure *@fig:chest-store-context-menu@*), we want to store the value of the variable `a` inside a chest.
 
-![Store object popup](./figures/chest-store-object-popup.png)
+![Store object popup](./figures/chest-store-object-popup.png width=70&label=fig:chest-store-object-popup)
 
-![Chest tree view inside the debugger, after having stored an object](./figures/chest-tree-view-after-store.png)
+Clicking on this menu entry opens a popup that asks to choose from the chest table the chest that will contain the object, as well as the name that this object should have in the selected chest (referred as 1 in Figure *@fig:chest-store-object-popup@*).
+Various options, referred as 2 in *@fig:chest-store-object-popup@*, allow to parameter what should be stored: the object itself, a shallow copy of the object or a deep copy of the object.
+In the example in Figure *@fig:chest-store-object-popup@*, we store the value of the variable `a`, in the chest whose name is _ExampleChest_, named as _ExampleChest\_2_.
 
 ##### Load object from a chest into a playground or a debugger
 
@@ -65,3 +73,4 @@ And the code to access your object is now pasted:
 
 ![Injected code for Chest, after having pasted the object from Chest Clipboard](./figures/chest-injected-code-after-paste-from-clipboard.png)
 
+#### Integration in debugger

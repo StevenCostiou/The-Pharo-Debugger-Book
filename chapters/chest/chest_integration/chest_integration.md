@@ -22,21 +22,18 @@ In the example in Figure *@fig:chest-store-object-popup@*, we store the value of
 
 ##### Load object from a chest into a playground or a debugger
 
-It's also possible to load objects from a chest into these code presenters:
+![Load object context menu, inside the debugger](./figures/chest-load-context-menu.png width=70&label=fig:chest-load-context-menu)
 
-![Load object context menu, inside the debugger](./figures/chest-load-context-menu.png)
+By right-clicking on a code presenter with an `SpCodeScriptingInteractionModel` or `StDebuggerContextInteractionModel` (e.g: playground, debugger), it is also possible to load one or several objects from a chest into these code presenters (Figure *@fig:chest-load-context-menu@*).
 
-![Load object popup](./figures/chest-load-object-popup.png)
+![Load object popup](./figures/chest-load-object-popup.png width=70&label=fig:chest-load-object-popup)
 
-![Usage of the Chest variable inside the debugger, after having loaded the object](./figures/chest-variable-usage-after-load.png)
+Clicking on this menu entry opens a popup that asks to choose from which chest the object(s) should be loaded as well as the name under which these object(s) should be loaded into the target code presenter.
+In the example in Figure *@fig:chest-load-object-popup@*, the objects named _tata_ and _ExampleChest\_1_ will be respectively loaded as _tata_ and _toto_ into the debugger.
 
-And then variables can be seen from any other context if it has been loaded in a debugger and these variables can be seen in the debugger inspector:
+![Usage of the Chest variable inside the debugger, after having loaded the object](./figures/chest-variable-usage-after-load.png width=70&label=fig:chest-variable-usage-after-load)
 
-![Chest variable, in the debugger inspector](./figures/chest-variable-in-debugger-inspector.png)
-
-Chest, as a debugger extension, provides a playground. All bindings between this playground and the debugger selected context are shared. So: all variables defined in this playground are recognized by the debugger and all variables from the debugger's selected context or loaded from Chest into the debugger are recognized by the playground. However, only the variables loaded from Chest (via the load menu entry described above) are displayed in the debugger inspector:
-
-![Variable from Chest playground, not visible in the debugger inspector](./figures/variable-from-chest-playground-are-not-visible-in-debugger-inspector.png)
+Then these variables can be evaluated from the debugger they have been loaded into.
 
 ##### Inject code to access an object inside a chest, in a playground or in the debugger
 
@@ -74,3 +71,7 @@ And the code to access your object is now pasted:
 ![Injected code for Chest, after having pasted the object from Chest Clipboard](./figures/chest-injected-code-after-paste-from-clipboard.png)
 
 #### Integration in debugger
+
+Chest, as a debugger extension, provides a playground. All bindings between this playground and the debugger selected context are shared. So: all variables defined in this playground are recognized by the debugger and all variables from the debugger's selected context or loaded from Chest into the debugger are recognized by the playground.
+
+![Variable from Chest playground, not visible in the debugger inspector](./figures/variable-from-chest-playground-are-not-visible-in-debugger-inspector.png)

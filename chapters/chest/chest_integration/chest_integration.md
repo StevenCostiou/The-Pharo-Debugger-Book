@@ -35,40 +35,44 @@ In the example in Figure *@fig:chest-load-object-popup@*, the objects named _tat
 
 Then these variables can be evaluated from the debugger they have been loaded into (Figure *@fig:chest-variable-usage-after-load@*).
 
-##### Inject code to access an object inside a chest, in a playground or in the debugger
+##### Inject code to access an object inside a chest from any spec code presenter
 
-To make it easier to access the content of a chest in a playground or in the debugger, it is possible to use the **Paste object from chest >** sub-menu.
-This sub-menu allows to choose a chest and the key of an object inside the chest.
+![Paste object from Chest context menu](./figures/chest-paste-object-from-chest-context-menu.png width=70&label=fig:chest-paste-object-from-chest-context-menu)
 
-![Paste object from Chest context menu](./figures/chest-paste-object-from-chest-context-menu.png)
+By right-clicking on any Spec code presenter, a sub-menu named _Paste object from chest >_ makes it easier to access an object contained in a chest. 
+This submenu contains a subsubmenu for each chest, which contain a menu entry for each object name contained in the chest (Figure *@fig:chest-paste-object-from-chest-context-menu@*).
 
-When clicking on a variable name, the necessary code to access the corresponding object is pasted where you had put your cursor in the playground/debugger:
+![Injected code for Chest, after having pasted the object](./figures/chest-injected-code-after-paste.png width=70&label=fig:chest-injected-code-after-paste)
 
-![Injected code for Chest, after having pasted the object](./figures/chest-injected-code-after-paste.png)
+When clicking on a menu entry, the necessary code to access the corresponding object is pasted in the Spec code presenter (Figure *@fig:chest-injected-code-after-paste@*)
 
-This command allows you to access objects from a chest, without relying on your memory of the `Chest` API.
+This command allows users to access objects from a chest, without them having to remind themselves of the `Chest` API.
 
-##### Simpler code injection in any spec code presenter
+##### Simpler code injection from any spec code presenter
 
-The method described above to access objects in chests implies that your objects need to be stored in a chest with a name that you must remember...
+The previous section described a way to inject code to access objects in chests from a Spec code presenter, without needing to remember the _Chest_ API.
+However, this implies that your objects need to be stored in a chest with a name that the user needs to remember.
 
-Sometimes, you would like to access objects quickly, without needing to give a name to an object that is stored...
+Sometimes, users would like to access objects quickly, without needing to give a name neither to an object that is stored, nor to the chest that will contain the object.
 
-That's why it is possible to copy / paste (=inject code to access) to / from a "Clipboard Chest", just as you would do to copy/paste text to/from the clipboard.
+Therefore, it is possible to "copy" an object from a Spec code presenter to "paste" it into another Spec code presenter, by using a "clipboard" of objects.
 
-To do that, you just need to select the expression that you want to evaluate and whose results should be stored in the "Clipboard Chest", and then select **Copy object in a clipboard chest** in the context menu:
+![Copy object to Chest Clipboard context menu](./figures/chest-copy-object-to-clipboard-context-menu.png width=70&label=fig:chest-copy-object-to-clipboard-context-menu)
 
-![Copy object to Chest Clipboard context menu](./figures/chest-copy-object-to-clipboard-context-menu.png)
+To do that, users just need to select the expression they want to evaluate and whose results should be accessed from another Spec code presenter. 
+By right-clicking on the code presenter containing this expression, clicking on the _Copy object in a clipboard chest_ it stores the result of the selected expression into a clipboard of objects, which is actually the default _ClipboardChest_ (Figure *@fig:chest-copy-object-to-clipboard-context-menu@*).
 
-This will store the result of the expression into the default clipboard chest. Please note, that if you "copy" another object to the clipboard chest, it will replace the previous copied object. Note also that the clipboard chest is a weak chest, so your object inside the clipboard chest can become `nil` if it gets garbage-collected.
+![Paste last object from Chest Clipboard context menu](./figures/chest-paste-last-object-from-clipboard-context-menu.png width=70&label=fig:chest-paste-last-object-from-clipboard-context-menu)
 
-In order to inject the code to access the object, you should then select in the context menu: **Paste last object copied to clipboard**:
+Then, after copying the object to the clipboard chest, it is possible to access it from any other Spec code presenter with the _Paste last object copied to clipboard_ menu entry (Figure *@fig:chest-paste-last-object-from-clipboard-context-menu@*).
 
-![Paste last object from Chest Clipboard context menu](./figures/chest-paste-last-object-from-clipboard-context-menu.png)
+![Injected code for Chest, after having pasted the object from Chest Clipboard](./figures/chest-injected-code-after-paste-from-clipboard.png width=70&label=fig:chest-injected-code-after-paste-from-clipboard)
 
-And the code to access your object is now pasted:
+After clicking on this menu entry, the code to access the last object that was stored into the clipboard chest is pasted (Figure *@fig:chest-injected-code-after-paste-from-clipboard@*).
 
-![Injected code for Chest, after having pasted the object from Chest Clipboard](./figures/chest-injected-code-after-paste-from-clipboard.png)
+An object copied to the clipboard can be accessed until one of the following conditions is filled:
+- the object has been garbage-collected if it is not referenced anywhere else in the system,
+- 10 objects have been stored into the clipboard chest after this object has been stored into the clipboard chest.
 
 #### Integration in debugger
 

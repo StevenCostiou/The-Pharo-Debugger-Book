@@ -33,7 +33,7 @@ In the example in Figure *@fig:chest-load-object-popup@*, the objects named _tat
 
 ![Usage of the Chest variable inside the debugger, after having loaded the object](./figures/chest-variable-usage-after-load.png width=70&label=fig:chest-variable-usage-after-load)
 
-Then these variables can be evaluated from the debugger they have been loaded into.
+Then these variables can be evaluated from the debugger they have been loaded into (Figure *@fig:chest-variable-usage-after-load@*).
 
 ##### Inject code to access an object inside a chest, in a playground or in the debugger
 

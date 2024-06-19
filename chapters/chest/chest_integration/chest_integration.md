@@ -82,7 +82,7 @@ _Chest_ also provides a _GUI_ that is directly integrated into the debugger as a
 
 The _Chest_ debugger extension settings can be displayed from the system settings (Figure *@fig:chest-extension-settings@*) or directly from a debugger (Figure *@fig:chest-extension-settings-in-debugger@*).
 
-![_Chest_ Debugger Extension Activated from the Debugger Settings](./figures/chest-debugger-extension.png width=70&label=fig:chest-debugger-extension)
+![_Chest_ Debugger Extension](./figures/chest-debugger-extension.png width=70&label=fig:chest-debugger-extension)
 
 When the _Chest_ debugger extension is activated, it is displayed in the right pane of each debugger extension, as any other debugger extension would (Figure *@fig:chest-debugger-extension@*).
 

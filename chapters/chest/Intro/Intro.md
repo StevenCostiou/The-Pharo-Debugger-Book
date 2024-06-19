@@ -26,13 +26,11 @@ Instances of `Chest` hold strong references to stored objects, which means that 
 
 #### Open Chest
 
-_Chest_'s main _GUI_ can be opened **via an entry in the "Debug" world menu** of Pharo (Figure *@fig:chest-debug-menu@*).
-
 ![_Chest_ in _Debug_ World Menu](./figures/chest-debug-menu.png width=70&label=fig:chest-debug-menu)
 
-_Chest_ can also be enabled as a _debugger extension_ in the debugging settings of Pharo (Figure *@fig:chest-extension-settings@*).
+_Chest_'s main _GUI_ can be opened **via an entry in the "Debug" world menu** of Pharo (Figure *@fig:chest-debug-menu@*).
 
 ![_Chest_ Debugger Extension in the Pharo Settings](./figures/chest-extension-in-settings.png width=90&label=fig:chest-extension-settings)
 
-
+_Chest_ can also be enabled as a _debugger extension_ in the debugging settings of Pharo (Figure *@fig:chest-extension-settings@*).
 

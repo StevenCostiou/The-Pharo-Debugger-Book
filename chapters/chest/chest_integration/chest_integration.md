@@ -74,8 +74,31 @@ An object copied to the clipboard can be accessed until one of the following con
 - the object has been garbage-collected if it is not referenced anywhere else in the system,
 - 10 objects have been stored into the clipboard chest after this object has been stored into the clipboard chest.
 
-#### Integration in debugger
+#### Integration of Chest to the Debugger
 
-Chest, as a debugger extension, provides a playground. All bindings between this playground and the debugger selected context are shared. So: all variables defined in this playground are recognized by the debugger and all variables from the debugger's selected context or loaded from Chest into the debugger are recognized by the playground.
+_Chest_ also provides a _GUI_ that is directly integrated into the debugger as a debugger extension, which provides the same information and actions than the _GUI_ that was described [in the previous section](#chest-graphical-user-interface).
 
-![Variable from Chest playground, not visible in the debugger inspector](./figures/variable-from-chest-playground-are-not-visible-in-debugger-inspector.png)
+![_Chest_ Debugger Extension Activated from the Debugger Settings](./figures/chest-extension-settings-in-debugger.png width=70&label=fig:chest-extension-settings-in-debugger)
+
+The _Chest_ debugger extension settings can be displayed from the system settings (Figure *@fig:chest-extension-settings@*) or directly from a debugger (Figure *@fig:chest-extension-settings-in-debugger@*).
+
+![_Chest_ Debugger Extension Activated from the Debugger Settings](./figures/chest-debugger-extension.png width=70&label=fig:chest-debugger-extension)
+
+When the _Chest_ debugger extension is activated, it is displayed in the right pane of each debugger extension, as any other debugger extension would (Figure *@fig:chest-debugger-extension@*).
+
+Chest as a debugger extension, just like its main _GUI_, provides a playground to load bindings from chests into it.
+However, contrary to its main _GUI_, the debugger extension does not show an inspector and, instead of showing a table for all chests and a table for their content, it shows both chests and their content together in a tree view.
+All roots of this tree are the chests, which can be expanded to show the objects they contain.
+For each chest and object, their name and value are displayed in the tree view.
+A chest can have a different icon according to their type: normal chest, weak chest or clipboard chest.
+
+The _Chest_ debugger extension allows to perform the same actions than the main _GUI_.
+When right-clicking on a chest, all actions on this chest can be performed.
+When right-clicking on an object in a chest, all actions on this object and all actions on its wrapping chest can be performed.
+
+![Variable From _Chest_ Debugger Extension Playground Evaluated in Debugger](./figures/chest-extension-playground-variable-evaluated-in-debugger.png width=70&label=fig:chest-extension-playground-variable-evaluated-in-debugger)
+
+![Variable From Debugger Evaluated in _Chest_ Debugger Extension Playground](./figures/variable-from-debugger-evaluated-in-chest-extension-playground.png width=70&label=fig:variable-from-debugger-evaluated-in-chest-extension-playground)
+
+A major advantage of the _Chest_ debugger extension is that all bindings from its playground and from the debugger selected context are shared. So: all variables defined in this playground are recognized by the debugger (Figure *@fig:chest-extension-playground-variable-evaluated-in-debugger@*) and all variables from the debugger's selected context or loaded from Chest into the debugger are recognized by the playground. (Figure *@fig:variable-from-debugger-evaluated-in-chest-extension-playground@*).
+

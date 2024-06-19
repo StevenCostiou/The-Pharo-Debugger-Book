@@ -12,11 +12,11 @@ Basic debug points can also be used but they do nothing unless we add **behavior
 
 It is possible to double-click on the left bar in the Calypso browser to set a basic breakpoint on the corresponding line (Figure *@fig:double-click-editor@*).
 
-![Activating basic breakpoint by double-clicking the left bar in the method editor](./graphics/debug-points-method-left-bar.png width=37&label=fig:double-click-editor)
+![Activating basic breakpoint by double-clicking the left bar in the method editor.](./graphics/debug-points-method-left-bar.png width=37&label=fig:double-click-editor)
 
 Moreover, in the Calypso browser, it is also possible to right-click on a piece of code to set a debug point on the corresponding instruction (Figure *@fig:editor-context-menu@*).
 
-![Installing basic debug points from the Calypso browser in the method editor](./graphics/debug-points-method-editor-context-menu.png width=70&label=fig:editor-context-menu)
+![Installing basic debug points from the Calypso browser in the method editor.](./graphics/debug-points-method-editor-context-menu.png width=70&label=fig:editor-context-menu)
 
 #### Behaviors of debug points
 
@@ -51,7 +51,7 @@ Debug points can be installed on different types of targets:
 
 - a _variable_, which can be targeted by selecting a variable in the variable view in the Calypso browser (Figure *@fig:calypso-variable-view@*).
 
-  ![Selecting a variable in the variable view in the Calypso browser, to set a debug point on a variable](./graphics/debug-points-variable-view-context-menu.png width=75&label=fig:calypso-variable-view)
+  ![Selecting a variable in the variable view in the Calypso browser, to set a debug point on a variable.](./graphics/debug-points-variable-view-context-menu.png width=75&label=fig:calypso-variable-view)
 
   In this case, the debug point is reached each time the targeted variable is read or/and written, according to the debug point's configuration.
 

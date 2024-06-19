@@ -1,6 +1,6 @@
 ### Chest Graphical User Interface
 
-![Chest overview](./figures/chest-overview.png width=70&label=fig:chest-overview)
+![_Chest_ main GUI overview.](./figures/chest-overview.png width=70&label=fig:chest-overview)
 
 To be able to visualize more easily the stored objects, _Chest_ provides a _GUI_.
 A table, referred as 1 in Figure *@fig:chest-overview@*, displays the name of all existing chests in the system, as well as the number of objects inside it.

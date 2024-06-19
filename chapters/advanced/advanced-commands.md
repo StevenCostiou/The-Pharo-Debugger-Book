@@ -25,12 +25,12 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:** 
     After clicking the _Next instance creation_ button (referred as 1 in Figure *@fig:before-step-creation@*) from the first assignment of `a` (code location referred as 2 in Figure *@fig:before-step-creation@*),
 
-    ![Step to next instance creation](graphics/before-step-next-creation.png width=70&label=fig:before-step-creation)
+    ![Before stepping to next instance creation.](graphics/before-step-next-creation.png width=70&label=fig:before-step-creation)
     
 
     we get to the next instruction that creates an instance (`#basicNew`), called inside `SindarinDebugger class>>#debug:` (Figure *@fig:after-step-creation@*).
 
-    ![Step to next instance creation](graphics/after-step-next-creation.png width=90&label=fig:after-step-creation)
+    ![After stepping to next instance creation.](graphics/after-step-next-creation.png width=90&label=fig:after-step-creation)
 
 * **Next call in receiver:** Steps the execution until a message is sent to the current context's receiver.
 
@@ -45,12 +45,12 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:**
     After clicking the _Next call in receiver_ button (referred as 1 in Figure *@fig:before-next-receiver@*) from the instruction `oc add: 1` (code location referred as 2 in Figure *@fig:before-next-receiver@*),
 
-    ![Step to next call in receiver](graphics/before-next-call-receiver.png width=90&label=fig:before-next-receiver)
+    ![Before stepping to next call in receiver.](graphics/before-next-call-receiver.png width=90&label=fig:before-next-receiver)
 
     we get to the next message send `#add:` to the object `oc` with `2` as argument.
     We don't stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is a different object from `oc` (Figure *@fig:after-next-receiver@*).
 
-    ![Step to next call in receiver](graphics/after-next-call-receiver.png width=90&label=fig:after-next-receiver)
+    ![After stepping to next call in receiver.](graphics/after-next-call-receiver.png width=90&label=fig:after-next-receiver)
 
 * **Next call in class:** Steps the execution until a message is sent to any instance of the class of the current context's receiver.
 
@@ -65,11 +65,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:**
     After clicking the _Next call in receiver_ button (referred as 1 in Figure *@fig:before-next-class@*) from the instruction `oc add: 1` (code location referred as 2 in the Figure *@fig:before-next-class@*),
 
-    ![Step to next call in class](graphics/before-next-call-class.png width=90&label=fig:before-next-class)
+    ![Before stepping to next call in class.](graphics/before-next-call-class.png width=90&label=fig:before-next-class)
 
     We stop on the message `#beginsWithAnyOf:` sent to the object `la` because `la` is an instance from the same class as `oc` (Figure *@fig:after-next-class@*).
 
-    ![Step to next call in class](graphics/after-next-call-class.png width=90&label=fig:after-next-class)
+    ![After stepping to next call in class.](graphics/after-next-call-class.png width=90&label=fig:after-next-class)
 
 
 * **To return:** Steps the execution until the current context is about to return, whether this is via a normal return, a non-local return or an implicit return, or until an unhandled exception is raised.
@@ -79,11 +79,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:**
     After clicking the _To return_ button (referred as 1 in Figure *@fig:before-return@*) from the bloc creation `[ ^ 42]` (code location referred as 2 in Figure *@fig:before-return@*),
 
-    ![Step to return](graphics/before-step-to-return.png width=90&label=fig:before-return)
+    ![Before stepping to return.](graphics/before-step-to-return.png width=90&label=fig:before-return)
 
     We stop inside the block because the block evaluation is going to perform a non-local return `^ 42` (Figure *@fig:after-return@*).
 
-    ![Step to return](graphics/after-step-to-return.png width=90&label=fig:after-return)
+    ![After stepping to return.](graphics/after-step-to-return.png width=90&label=fig:after-return)
    
 
 * **To method entry:** Steps the execution until a method is called, to stop at the start of its execution.
@@ -91,11 +91,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:**
     After clicking the _To method entry_ button (referred as 1 in Figure *@fig:before-method@*) from the start of the execution of the method `testBeginsWithAnyOf2` (code location referred as 2 in Figure *@fig:before-method@*),
 
-    ![Step to method entry](graphics/before-step-method-entry.png width=90&label=fig:before-method)
+    ![Before stepping to method entry.](graphics/before-step-method-entry.png width=90&label=fig:before-method)
 
     We stop at the beginning of the method `new` because this is the next message that is sent during the execution (Figure *@fig:after-method@*).
 
-    ![Step to method entry](graphics/after-step-method-entry.png width=90&label=fig:after-method)
+    ![After stepping to method entry.](graphics/after-step-method-entry.png width=90&label=fig:after-method)
 
 * **Skip:** Skips an instruction without executing it. 
 
@@ -117,11 +117,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:**
     After clicking the _Skip_ button (referred as 1 in Figure *@fig:before-skip@*) when the message `unkownMessage` is going to be sent to `1` (referred as 2 in Figure *@fig:before-skip@*),
 
-    ![Skip a message send](graphics/before-skip.png width=70&label=fig:before-skip)
+    ![Before skipping a message send.](graphics/before-skip.png width=70&label=fig:before-skip)
 
     Instead of sending the message that would raise a `MessageNotUnderstood` exception, it simulates as if the message send had returned `1` and stops on the expression `+ 42` (Figure *@fig:after-skip@*)
 
-    ![Skip a message send](graphics/after-skip.png width=70&label=fig:after-skip)
+    ![After skipping a message send.](graphics/after-skip.png width=70&label=fig:after-skip)
     
     So, stepping this expression will return `43`, as `1 + 42` is evaluated.
 
@@ -136,11 +136,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:**
     After setting the caret to the instruction `a + 2` (code location referred as 3 in Figure *@fig:before-skip-caret@*) and clicking the _Skip up to_ button (referred as 1 in *@fig:before-skip-caret@*), from the block creation `[ a := a + 1]` (code location referred as 2 in Figure *@fig:before-skip-caret@*),
 
-    ![Skip up to caret](graphics/before-skip-up-to.png width=70&label=fig:before-skip-caret)
+    ![Before skipping up to caret.](graphics/before-skip-up-to.png width=70&label=fig:before-skip-caret)
 
     The block creation is skipped, which returns `nil` instead, and the assignment of the variable `block` is also skipped. As a result, the variable `block` is still `nil` after skipping the code (Figure *@fig:after-skip-caret@*).
 
-    ![Skip up to caret](graphics/after-skip-up-to.png width=70&label=fig:after-skip-caret)
+    ![After skipping up to caret.](graphics/after-skip-up-to.png width=70&label=fig:after-skip-caret)
 
 * **JumpToCaret:** jumps to the instruction under caret that can be anywhere in the home context, without changing the state of the program.
 
@@ -155,11 +155,11 @@ The debugging commands offered by the StDebugger in the "Advanced step" toolbar 
     **Example:**
     After setting the caret to the instruction `a + 1` inside the embedded block (code location referred as 3 in Figure *@fig:before-jump@*) and clicking the _Jump to caret_ button (referred as 1 in Figure *@fig:before-jump@*), from the instruction `a * 42`located further in the method (referred as 2 in Figure *@fig:before-jump@*),
 
-    ![Jump to caret](graphics/before-jump-to-caret.png width=70&label=fig:before-jump)
+    ![Before jumping to caret.](graphics/before-jump-to-caret.png width=70&label=fig:before-jump)
 
     We have now entered the embeddded block and stopped on the target instruction. The state of the program has not changed, so the value of `a` is still `3` (Figure *@fig:after-jump@*).
 
-    ![Jump to caret](graphics/after-jump-to-caret.png width=70&label=fig:after-jump)
+    ![After jumping to caret.](graphics/after-jump-to-caret.png width=70&label=fig:after-jump)
 
 
 

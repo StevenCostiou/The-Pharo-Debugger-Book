@@ -35,19 +35,19 @@ You can see the value stack of the current context (where the interpreter pushes
 
 Evaluate `interpreter stepInto` 3 times to evaluate the receiver and arguments of the `#x:y:` message being interpreted.  
 
-*New node stack:*  
+_New node stack:_  
 ![Node stack after stepping into](./figures/interpreter_example_nodes_after_step_into.png width=70)  
 
-*New value stack:*  
+_New value stack:_  
 ![Value stack after stepping into](./figures/interpreter_example_value_stack_after_step_into.png width=70)  
 
 
 Finally, the message send itself is ready to be interpreted. If you evaluate `interpreter stepOver`, the interpreter will pop the receiver and arguments from the value stack, evaluate the message send completely, and push its value on the value stack.  
 
-*New node stack:*  
+_New node stack:_  
 ![Node stack after stepping over](./figures/interpreter_example_nodes_after_step_over.png width=70)  
 
-*New value stack:*  
+_New value stack:_
 ![Value stack after stepping over](./figures/interpreter_example_value_stack_after_step_over.png width=70 )  
 
 As you can see, the value of the message send is the point it created: `(1@2)`
@@ -86,6 +86,20 @@ This will open the DASTDebugger on the method `SindarinDebuggerTest>>#methodWith
 
 ![DASTDebugger opening](./figures/debugger_example_dast_debugger_open.png width=70)
 
+You can observe what the interpreter does if you click on _step over_ 7 times. 
+This will execute all code related to the next 7 AST nodes that has bytecodes associated to it.
+The debugger now stops on the message send `#x:y:`:
+
+![DASTDebugger opening](./figures/debugger_example_after_step_over.png width=70)
+
+Now, you can click on _step_ to enter the method `Point>>#x:y:`:
+
+![DASTDebugger opening](./figures/debugger_example_after_step.png width=70)
+
+Then, it is possible to select the context `SindarinDebuggerTest>>#methodWithTwoAssignments` in the context stack and click on the _Restart_ button.
+This will restart completely the execution of this context, starting from the creation of the method's temporary variables:
+
+![DASTDebugger opening](./figures/debugger_example_after_restart.png width=70)
 
 
 #### Known problems:

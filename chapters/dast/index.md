@@ -26,7 +26,7 @@ interpreter initializeWithProgram: (RBParser parseExpression: 'Point x: 1 y: 2')
 
 You can see the stack of AST nodes the current context still has to interpret by inspecting: `interpreter currentContext nodes`. The nodes will be interpreted from last to first.
 
-*Node stack:*  
+_Node stack:_  
 ![Initial Node stack](./figures/interpreter_example_initial_nodes.png width=70)
 
 
@@ -75,7 +75,7 @@ Metacello new
 Open a class browser on the class `SindarinDebuggerTest`.
 Right-click on its method `methodWithTwoAssignments`, and set a DAST breakpoint on the method via the context menu `Breakpoints > DAST breakpoint`
 
-![Setting a DAST breakpoint on a method](./figures/debugger_example_set_dast_breakpoint.png width=50)
+![Setting a DAST breakpoint on a method](./figures/debugger_example_set_dast_breakpoint.png width=70)
 
 Then, open a playground, try to execute this code:
 
@@ -118,7 +118,7 @@ In a playground, paste this code and debug it:
 
 Click on _Over_ once in the `StDebugger` then click on the button with an exclamation mark_ icon in the top-right corner:
 
-![Switch from StDebugger to DAST](./figures/switch_example_dast_debugger_opening.png width=70)
+![Switch from StDebugger to DAST](./figures/switch_example_dast_debugger_opening.png width=90)
 
 This will close the StDebugger and open the DAST debugger on the same program, at the same instruction, which will be executed with the DAST interpreter.
 Click on _Step Through_ 8 times to enter the block.

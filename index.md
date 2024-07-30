@@ -34,4 +34,6 @@
 
 <!inputFile|path=chapters/dast/index.md!>
 
+<!inputFile|path=chapters/red/index.md!>
+
 # Tutorial: Building a Remote Debugger

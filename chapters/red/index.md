@@ -33,19 +33,19 @@ Then, in a playground, in the **client** image, execute this code:
 PharoBridge startAtPort: 4321.
 ```
 
-In the **client** image, in the World toolbar at the top, click on the `Debug > Remote Debugger Sessions` menu entry:
+In the **client** image, in the World toolbar at the top, click on the `Debug > Remote Debugger Sessions` menu entry (Figure *@fig:red-client-opening@*).
 
-![Launching Red Debugger client](./figures/red-client-opening.png width=70)
+![Launching Red Debugger client](./figures/red-client-opening.png width=70&label=fig:red-client-opening)
 
 This will connect the client to the server and will open a presenter listing the different remote debug sessions you can debug (which is empty, for now).
 
-In the **server** image, open the Pharo settings (`Pharo > Settings` menu entry in the World toolbar) on `Tools > Debugging > Debuggers > StDebugger` and set the priority of the `StDebugger` to `9`.
+In the **server** image, open the Pharo settings (`Pharo > Settings` menu entry in the World toolbar) on `Tools > Debugging > Debuggers > StDebugger` and set the priority of the `StDebugger` to `9` (Figure *@fig:stdebugger-priority-change@*).
 
-![Changing StDebugger priority](./figures/stdebugger-priority.png width=70)
+![Changing StDebugger priority](./figures/stdebugger-priority.png width=70&label=fig:stdebugger-priority-change)
 
-To check that everything works correctly, execute `1/0` in the **server** image, and check that the session appears in the **client** image:
+To check that everything works correctly, execute `1/0` in the **server** image, and check that the session appears in the **client** image (Figure *@fig:red-client-check@*)
 
-![The remote session appears in the red client presenter](./figures/red-client-check.png width=70)
+![The remote session appears in the red client presenter](./figures/red-client-check.png width=70&label=fig:red-client-check)
 
 It is then possible to click on the _Debug_ button of the client presenter to open a debugger on the remote program.
 
@@ -81,7 +81,7 @@ myMethod
 	^ 42 + 666
 ```
 
-The, in the class `A`, compile the following methods class-side:
+The, in the class `A`, compile the following methods **class-side**:
 
 ```Smalltalk
 mySharedVar
@@ -140,13 +140,13 @@ It is possible to recover a proxy for the class `A` in the **client** image by e
 aClass := PharoBridge loadClass: #A.
 ```
 
-Inspecting `aClass` will give you an `objectId`:
+Inspecting `aClass` will give you an `objectId` (Figure *@fig:A-proxy-inspect@*).
 
-![Inspecting proxy for `A` class.](./figures/A-proxy-inspect.png width=70).
+![Inspecting proxy for `A` class.](./figures/A-proxy-inspect.png width=70&label=fig:A-proxy-inspect).
 
-This `objectId` is mapped to the real object (here, the class `A`) in the **server** image, which you can see by inspecting `PharoBridgeObject reverseServer instanceMap`:
+This `objectId` is mapped to the real object (here, the class `A`) in the **server** image, which you can see by inspecting `PharoBridgeObject reverseServer instanceMap` (Figure *@fig:instanceMap-mapping-A-class@*).
 
-![Instance map, showing the objectId of proxy of `A` class.](./figures/instanceMap-mapping-A-class.png width=70).
+![Instance map, showing the objectId of proxy of `A` class.](./figures/instanceMap-mapping-A-class.png width=70&label=fig:instanceMap-mapping-A-class).
 
 Then, you can create a new instance from the loaded class in your **client** image:
 
@@ -163,12 +163,12 @@ aInstance myInstVar: 'abcdef'.
 aInstance myInstVar
 ```
 
-Inspecting `aInstance myInstVar` will inspect a real string in the **client** image, because it is a literal:
+Inspecting `aInstance myInstVar` will inspect a real string in the **client** image, because it is a literal (Figure *@fig:remote-instvar-literal@*)
 
-![Inspecting a remote instance variable returns a local literal.](./figures/remote-instvar-literal.png width=70)
+![Inspecting a remote instance variable returns a local literal.](./figures/remote-instvar-literal.png width=70&label=fig:remote-instvar-literal)
 
-However, if the value of a remote instance variable is not a literal, inspecting it in the **client** image will inspect a new proxy, whose `objectId` would have automatically been registered in the **server** `instanceMap`:
-> I am not sure about that. I cannot reproduce it because of the 4th Pharo Bridge problem (See section `Known PharoBridge problems` below).
+However, if the value of a remote instance variable is not a literal, inspecting it in the **client** image will inspect a new proxy, whose `objectId` would have automatically been registered in the **server** `instanceMap`.
+> I am not sure about that. I cannot reproduce it because of the 4th Pharo Bridge problem ([See section](#known-pharobridge-problems)).
 
 #### Discussion
 
@@ -178,7 +178,7 @@ It could be done by mapping in the **server** image a new `objectId` for each ac
 Then, this `objectId` could be used to get the inspector nodes of the remote object.
 However, we should think about what inspector nodes should be displayed and how.
 Because the values of the instance variables of the remote object will created other proxies in the **client** image and we may have to get the remote values of their own instance variables also...
-This can get complicated as not all objects are serializable (`CompiledMethod`, `CompiledBlock`, etc.), so what inspector nodes should be displayed and how ? I did not manage to answer this question.
+This can get complicated as not all objects are serializable (`CompiledMethod`, `CompiledBlock`, etc.), so what inspector nodes should be displayed and how? I did not manage to answer this question.
 
 ### Known problems
 
@@ -186,7 +186,7 @@ This can get complicated as not all objects are serializable (`CompiledMethod`, 
 
 - Sometimes, the code does not seem to be highlighted in the client image when debugging a remote `DoIt`.
 
-### Know PharoBridge problems
+### Known PharoBridge problems
 
 - A `PharoBridgeClass` object is not printed correctly when inspecting the object. However, it is printed correctly when sending the message `printString` to it.
 

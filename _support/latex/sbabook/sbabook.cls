@@ -227,6 +227,7 @@
 %%%
 %%% Page styles & folios
 %%%
+\justifying
 \def\headfootfont{\small\sffamily}
 %% main page style variant
 \makepagestyle{sba-headings}

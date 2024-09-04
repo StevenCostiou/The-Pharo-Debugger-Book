@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    uses: SquareBracketAssociates/BookBuilderDashboard/.github/workflows/main.yml@master
+    uses: SquareBracketAssociates/BookBuilderDashboard/.github/workflows/main.yml@newVersionOfPillar
     with:
       bookname: tpd-wip
 

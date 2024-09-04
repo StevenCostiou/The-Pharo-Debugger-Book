@@ -1,7 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{sbabook}[2020/02/28]
+\ProvidesClass{sbabook}[2024/03/18]
 
-% \ExecuteOptions{a4paper,11pt,twoside}
 \ProcessOptions*
 \LoadClassWithOptions{memoir}
 
@@ -12,7 +11,6 @@
 %%%
 %%% Page layout
 %%%
-
 \newcommand{\stockustrade}{\setstocksize{9in}{6in}}% Lulu final book proportions
 \newcommand{\stockaivus}{\setstocksize{11in}{210mm}}% intersection of A4 and US Letter
 \newcommand{\setbleed}[1]{%
@@ -20,17 +18,31 @@
     \settrims{#1}{#1}%
     \advance\stockheight 2\trimtop
     \advance\stockwidth  2\trimedge}
+
+% Paper format for US trade paperback (e.g. Lulu)
 \newcommand{\paperbackpage}{
   \stockustrade
   \setbleed{.125in}
   % \setbinding{5mm}
   \setlrmarginsandblock{.85in}{.65in}{*}
   \setulmarginsandblock{.75in}{.75in}{*}}
+
+% Paper format for office binding (both A4 and letter paper)
 \newcommand{\spiralboundpage}{
   \stockaivus
   \setbleed{0pt}% trims not required (unless we deliver this via Lulu as well?)
   \setlrmarginsandblock{1.25in}{1.25in}{*}
   \setulmarginsandblock{.75in}{1in}{*}}
+
+% Paper format for https://librairie.bod.fr
+\newcommand{\bodpage}{
+  \setstocksize{220mm}{155mm} % final trimmed book dimensions
+  \setbleed{5mm} % additional paper, before trimming
+  \setlrmarginsandblock{.85in}{.65in}{*}
+  \setulmarginsandblock{.75in}{.75in}{*}}
+
+% Use this to select the page layout.
+% Pass one of the above \FOOpage, or an equivalent custom macro
 \newcommand{\pagelayout}[1]{
   \providecommand{\setuppage}{#1}% set default page layout
   \setuppage\checkandfixthelayout
@@ -43,9 +55,9 @@
 %%%
 %%% Fonts & paragraph typography
 %%%
-\RequirePackage{fontspec,gentium,opensans,FiraMono}
+\RequirePackage{fontspec,gentiumbook,opensans,FiraMono}
 
-\setmainfont{Gentium Book Basic}
+\setmainfont{Gentium Book Plus}
 \setsansfont{Open Sans}[
   \@ifpackagelater{opensans}{2019/06/19}% test for font naming bug
     {}% 2019/06/20 fixed it
@@ -215,7 +227,6 @@
 %%%
 %%% Page styles & folios
 %%%
-\justifying
 \def\headfootfont{\small\sffamily}
 %% main page style variant
 \makepagestyle{sba-headings}
@@ -331,7 +342,7 @@
     breakatwhitespace,
     showstringspaces=false,
     mathescape=false,
-    tabsize=4,
+    tabsize=2,
     keywordstyle={},
     stringstyle={},
     commentstyle={},
@@ -491,7 +502,6 @@
 %% verbatim setup
 \bvtopandtail % \bvsides
 \setlength{\bvboxsep}{.25em}
-\tabson[4]
 \setverbatimfont{\normalfont\codefamily\small}
 
 \DeclareRobustCommand{\LaTeX}{%

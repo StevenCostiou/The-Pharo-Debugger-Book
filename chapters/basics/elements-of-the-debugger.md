@@ -7,19 +7,18 @@ From top to bottom, the debugger shows an option toolbar, a call stack, a comman
 
 #### The option toolbar
 
-![](graphics/option-toolbar-extensions.png width=5&caption=) **Extensions**
+![The debugger options toolbar.](graphics/debugger-elements-options.png)
 
+**Extensions.**
 The _extensions_ option opens a popup to choose which debugger extension to activate or deactivate.
 Debugger extensions are covered later in the corresponding chapter.
 
-![](graphics/option-toolbar-stack-filtering.png  width=10) **Filter debugging information**
-
+**Filter debugging information.**
 Filters debugging information in the stack.
 The filter hides unnecessary low-level debugging concerns that otherwise appear in the context stack, such as additional contexts in the debugging core.
 Clicking on this button toggles the filter on and off.
 
-![](graphics/option-toolbar-configuration.png width=3) **Configuration**
-
+**Configuration.**
 Opens the settings browser scoped on the debugging options.
 From this browser, we can configure the debugger, its infrastructure and tools.
 The debugger configuration is covered in the corresponding chapter.
@@ -56,31 +55,13 @@ The stack has a context menu accessible by right clicking on any element of the 
 - **Browse pointers to:** Browse all objects referencing the selected object
 
 
-
-
-
+#### The commands.
 
 Developers manually step through the execution by using the commands (\autoref{fig:stdebugger}~b).
 After any debugging action, the code presenter (\autoref{fig:stdebugger}~c) is updated and highlights the source code that will be executed in the next step.
 Developers observe execution data using the inspector (\autoref{fig:stdebugger}~d) in addition to the stack.
-%It allows developers to control a program thread execution (a \texttt{Process}) which is advanced by performing \textit{stepping operations} that are available in the debugging commands toolbar.
+%It allows developers to control a program thread execution (a `Process}) which is advanced by performing \textit{stepping operations} that are available in the debugging commands toolbar.
 
-The Pharo StDebugger main GUI elements. Composed by the stack (a), the debugging commands toolbar (b), the code presenter (c), and the debugger inspector (d)
-
-
-
-
-
-
-
-#### The option menu.
-
-
-#### The commands.
-
-#### The code.
-
-#### The inspector.
 Commands are actions applicable to the current context
 After each debugging action (''e.g.'', a step), the list of commands is being updated.
 New commands may appear or disappear.
@@ -88,10 +69,30 @@ It depends if they are applicable or not to the current context and debugging se
 For instance, when a ==doesNotUnderstand== exception is raised (''i.e.'', a method does not exist), the command ''createMethod'' will appear.
 In that case, it gives users the possibility to create the missing method and continue the execution.
 
-""The status line.""
-This view provides information about the current context.
-Non-critical information, such as the current instruction being stepped, are displayed in gray.
-Critical information ,such as halts or breakpoints or DNU exceptions, are displayed in red.
+The debugging commands offered by the StDebugger in the commands toolbar are the following ones:
+
+* Proceed: Resumes the normal execution of the debugged process until a new breakpoint is hit or the program is finished.
+
+* Into: Steps into method invocations.
+Interprets the bytecode instructions of the program until a message is about to be sent,  a method is activated (\ie{}after the message send), a method is about to return, or an assignment is about to be performed.
+
+* Over: Steps through the code, avoiding entering method invocations or closure evaluations.
+Interprets the bytecode instructions of the program.
+Stops only for the following conditions in the current `Context`. 
+In Pharo, a `Context` is an object representing what is commonly known as a stack frame, containing data of the execution state of a method and a pointer to the calling frame (the sender `Context`) or its sender context: until a message is about to be sent, a method is about to return, or an assignment is about to be performed.
+
+* Through: Steps through the code, avoiding entering method invocations. 
+It enters `BlockClosures` defined in the current activated method.
+In Pharo, a `BlockClosure` is an object that represents closures, used as anonymous functions or code blocks.
+Interprets the bytecode instructions of the program.
+Stops when a message is about to be sent, a method is about to return, or an assignment is about to be performed in specific contexts.
+These contexts are: the current context, any `BlockClosures` context originating from the current context, or its sender context.
+
+* RunTo: Executes instructions up to the code under the caret or until the current method returns.
+
+* Restart: Goes back to the start of the context currently selected in the stack, typically the current executing one, reinitializing its local variables.
+
+#### The code.
 
 ""The code.""
 The code pane shows the source code of the interrupted context's method.
@@ -101,6 +102,11 @@ It is coloured in blue if that instruction is selected in the source code, or in
 
 A context menu (through right click) provides inspection, exploration, and stepping actions applicable to the context.
 Such actions include, ''e.g.'', browse implementors of a selected message or skip execution of selected parts of the code.
+
+
+#### The inspector.
+
+
 
 ""The inspector.""
 It provides views on the current context.
